@@ -5,6 +5,8 @@ using UnityEngine;
 public class ThirdpersonPlayer : Player
 {
     private Animator _anim;
+    public Bullet bullet;
+    public Transform bulletOrigin;
 
     protected override void Awake()
     {
@@ -23,8 +25,12 @@ public class ThirdpersonPlayer : Player
         if (Input.GetKeyUp(KeyCode.LeftControl))
             _anim.SetBool("Crouched", false);
 
-        if (canUse && Input.GetMouseButtonDown(0))
+        if (canUse && Input.GetMouseButtonDown(0)) { 
             _anim.SetTrigger("Shoot"); //Seteo un trigger en el animator
+            Bullet b = Instantiate(bullet);
+            b.transform.position = bulletOrigin.position;
+            b.transform.forward = bulletOrigin.transform.forward;
+        }
 
         if (Input.GetKeyDown(KeyCode.F))
         {

@@ -15,8 +15,8 @@ public class ThirdPersonCamera : MyCamera
         transform.position = Vector3.Lerp(transform.position, pivot.position, Time.deltaTime * lerpSpeed);
 
         RotY += Input.GetAxis("Mouse X") * rotSpeed;
-        RotX -= Input.GetAxis("Mouse Y") * rotSpeed;
-        RotX = Mathf.Clamp(RotX, -30, 30);
+        //RotX -= Input.GetAxis("Mouse Y") * rotSpeed;
+        RotX = Mathf.Clamp(RotX, -20, 20);
 
         transform.localEulerAngles = new Vector3(RotX, RotY, transform.localEulerAngles.z);
 

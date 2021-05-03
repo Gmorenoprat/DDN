@@ -7,6 +7,7 @@ public class ThirdpersonPlayer : Player
     private Animator _anim;
     public Bullet bullet;
     public Transform bulletOrigin;
+    private float _isShooting;
 
     protected override void Awake()
     {
@@ -17,8 +18,9 @@ public class ThirdpersonPlayer : Player
 
     void Update()
     {
-        _anim.SetFloat("Speed_Forward", Input.GetAxis("Vertical")); //Seteo float en el animator    
-        _anim.SetFloat("Speed_Right", Input.GetAxis("Horizontal")); //Seteo float en el animator                             
+        if (_anim.GetBool("IsShooting")) { _isShooting = 0.5f; } else { _isShooting = 1f; }
+        _anim.SetFloat("Speed_Forward", Input.GetAxis("Vertical")* _isShooting); //Seteo float en el animator    
+        _anim.SetFloat("Speed_Right", Input.GetAxis("Horizontal")* _isShooting); //Seteo float en el animator                             
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
             _anim.SetBool("Crouched", true); //Seteo bool en el animator
@@ -26,10 +28,22 @@ public class ThirdpersonPlayer : Player
             _anim.SetBool("Crouched", false);
 
         if (canUse && Input.GetMouseButtonDown(0)) { 
-            _anim.SetTrigger("Shoot"); //Seteo un trigger en el animator
+            //_anim.SetTrigger("Shoot"); //Seteo un trigger en el animator
             Bullet b = Instantiate(bullet);
             b.transform.position = bulletOrigin.position;
             b.transform.forward = bulletOrigin.transform.forward;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            _anim.SetBool("IsShooting",true); //Seteo un trigger en el animator
+            this.GetComponent<ThirdPersonMovement>().slowDownSpeed(true);
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            _anim.SetBool("IsShooting", false); //Seteo un trigger en el animator
+            this.GetComponent<ThirdPersonMovement>().slowDownSpeed(false);
+
         }
 
         if (Input.GetKeyDown(KeyCode.F))

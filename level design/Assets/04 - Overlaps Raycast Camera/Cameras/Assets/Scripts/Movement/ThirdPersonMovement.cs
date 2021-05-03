@@ -17,8 +17,17 @@ public class ThirdPersonMovement : Movement
         _cameraRight = new Vector3(_cam.right.x, transform.forward.y, _cam.right.z);
     }
 
-    private void Update()
+    public void slowDownSpeed(bool estaApundando)
     {
+        if (estaApundando) {
+            speedForward = speedForward / 2;
+            speedRight = speedRight / 2;
+        }
+        else if (!estaApundando)
+        {
+            speedForward = speedForward * 2;
+            speedRight = speedRight * 2;
+        }
     }
 
     public override void Move()

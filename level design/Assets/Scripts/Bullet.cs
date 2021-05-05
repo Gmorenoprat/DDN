@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int danio = 1;
     public Transform bulletTransform;
     public float speed = 10f;
 
@@ -19,6 +18,9 @@ public class Bullet : MonoBehaviour
         bulletTransform.position += bulletTransform.forward * -speed * Time.deltaTime;
     }
 
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject.Destroy(this.gameObject);
+    }
 
 }

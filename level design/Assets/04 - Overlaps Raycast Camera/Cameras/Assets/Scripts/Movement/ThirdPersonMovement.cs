@@ -40,5 +40,6 @@ public class ThirdPersonMovement : Movement
 
         rb.velocity = (_cameraForward * Input.GetAxis("Vertical") * speedForward +
                         _cameraRight * Input.GetAxis("Horizontal") * speedRight);
+       // Debug.Log(rb.velocity);
     }
 }

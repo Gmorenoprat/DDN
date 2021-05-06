@@ -14,6 +14,9 @@ public class ThirdpersonPlayer : Player
         base.Awake();
 
         _anim = GetComponent<Animator>(); //Guardo mi animator
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     void Update()

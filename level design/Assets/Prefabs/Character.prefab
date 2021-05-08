@@ -653,7 +653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedForward: 50
   speedRight: 50
-  rotSpeed: 15
+  rotSpeed: 30
 --- !u!114 &5285654096985559797
 MonoBehaviour:
   m_ObjectHideFlags: 0

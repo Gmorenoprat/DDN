@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6443247267145292856}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &117296340716463991
 GameObject:
@@ -59,7 +59,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 6443247267145292856}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &818411320
 SpriteRenderer:
@@ -111,6 +111,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &860717963233308010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6016009565439799835}
+  m_Layer: 0
+  m_Name: shaderPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6016009565439799835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860717963233308010}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6443247267145292856}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4296925988572020325
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +169,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6443247267145292856}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5174214845513396255
 GameObject:
@@ -584,9 +614,10 @@ Transform:
   - {fileID: 6443247267145292860}
   - {fileID: 6443247267145292862}
   - {fileID: 6443247267145292854}
-  - {fileID: 4587490387966163675}
   - {fileID: 515529540}
   - {fileID: 3963399923056248204}
+  - {fileID: 4587490387966163675}
+  - {fileID: 6016009565439799835}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -651,9 +682,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa74785dc76d81f4a9a90c585c92e266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedForward: 50
-  speedRight: 50
-  rotSpeed: 30
+  speedForward: 45
+  speedRight: 45
+  rotSpeed: 25
 --- !u!114 &5285654096985559797
 MonoBehaviour:
   m_ObjectHideFlags: 0

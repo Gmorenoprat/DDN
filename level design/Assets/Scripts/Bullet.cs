@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
         bulletTransform.position += bulletTransform.forward * speed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public virtual void OnCollisionEnter(Collision collision)
     {
         GameObject.Destroy(this.gameObject);
     }

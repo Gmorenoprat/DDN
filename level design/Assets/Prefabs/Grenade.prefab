@@ -154,7 +154,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
-  explotionEffect: {fileID: 580163786015205977, guid: ef652797fd054854cb6e00a676e25c2b,
+  explotionEffect: {fileID: 580163786015205977, guid: be8a52adbca460947a29d60bf44be70f,
     type: 3}
 --- !u!54 &1577964540054989422
 Rigidbody:

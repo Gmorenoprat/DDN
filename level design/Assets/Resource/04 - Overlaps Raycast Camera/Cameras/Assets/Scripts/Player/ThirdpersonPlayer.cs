@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThirdpersonPlayer : Player
+public class ThirdpersonPlayer : MonoBehaviour
 {
     private Animator _anim;
     public Bullet bullet;
     public Transform bulletOrigin;
     private float _isShooting;
 
-    protected override void Awake()
-    {
-        base.Awake();
+    //protected override void Awake()
+    //{
+    //    base.Awake();
 
-        _anim = GetComponent<Animator>(); //Guardo mi animator
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.lockState = CursorLockMode.Confined;
-    }
+    //    _anim = GetComponent<Animator>(); //Guardo mi animator
+    //    Cursor.visible = false;
+    //    Cursor.lockState = CursorLockMode.Locked;
+    //    Cursor.lockState = CursorLockMode.Confined;
+    //}
 
     void Update()
     {
@@ -30,22 +30,22 @@ public class ThirdpersonPlayer : Player
         if (Input.GetKeyUp(KeyCode.LeftControl))
             _anim.SetBool("Crouched", false);
 
-        if (canUse && Input.GetMouseButtonDown(0)) { 
-            //_anim.SetTrigger("Shoot"); //Seteo un trigger en el animator
-            Bullet b = Instantiate(bullet);
-            b.transform.position = bulletOrigin.position;
-            b.transform.forward = bulletOrigin.transform.forward;
-        }
+        //if (canUse && Input.GetMouseButtonDown(0)) { 
+        //    //_anim.SetTrigger("Shoot"); //Seteo un trigger en el animator
+        //    Bullet b = Instantiate(bullet);
+        //    b.transform.position = bulletOrigin.position;
+        //    b.transform.forward = bulletOrigin.transform.forward;
+        //}
 
         if (Input.GetMouseButtonDown(1))
         {
             _anim.SetBool("IsShooting",true); //Seteo un trigger en el animator
-            this.GetComponent<ThirdPersonMovement>().slowDownSpeed(true);
+            //this.GetComponent<ThirdPersonMovement>().slowDownSpeed(true);
         }
         if (Input.GetMouseButtonUp(1))
         {
             _anim.SetBool("IsShooting", false); //Seteo un trigger en el animator
-            this.GetComponent<ThirdPersonMovement>().slowDownSpeed(false);
+            //this.GetComponent<ThirdPersonMovement>().slowDownSpeed(false);
 
         }
 
@@ -56,8 +56,8 @@ public class ThirdpersonPlayer : Player
         }
     }
 
-    public void Shoot()
-    {
-        gun.Shoot(); //La clase Gun como hereda de IShoot, puedo llamar la funcion Shoot
-    }
+    //public void Shoot()
+    //{
+    //    gun.Shoot(); //La clase Gun como hereda de IShoot, puedo llamar la funcion Shoot
+    //}
 }

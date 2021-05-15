@@ -19,18 +19,20 @@ public class PlayerController  //ALL THE INPUT HERE
 
     public void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) //ACA ROLL
-        {
-            // if (_player.isGrounded) _soundMananger.SoundPlay((int)sounds.JUMP);
-           // _movement.Jump();
-            _movement.Roll();
-
-        }
-
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         _player._animator.SetFloat("Speed_Forward", v);
         _player._animator.SetFloat("Speed_Right", h);
+
+        if (Input.GetKeyDown(KeyCode.Space)) //ACA ROLL
+        {
+            // if (_player.isGrounded) _soundMananger.SoundPlay((int)sounds.JUMP);
+           // _movement.Jump();
+            _movement.Roll(v, h);
+
+        }
+
+        
 
         if (v != 0 || h != 0)
         {

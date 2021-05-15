@@ -6,7 +6,7 @@ public class Movement
     Player _player;
     Animator _animator;
     Rigidbody _rb;
-    float _jumpForce = 1500f;
+    float _jumpForce = 2500f;
     float _rotateSpeed = 500f;
 
     float _speed ;
@@ -17,6 +17,7 @@ public class Movement
     Vector3 _cameraForward;
     Vector3 _cameraRight;
 
+    
 
 
 
@@ -42,37 +43,40 @@ public class Movement
         _rb.AddForce(force, ForceMode.Impulse);
     }
 
-    public void Roll()
+    public void Roll(float v, float h)
     {
-
+        Vector3 direction = new Vector3(h, 0, v).normalized;
+        _animator.SetTrigger("Rolling");
+        _rb.AddForce(direction * _jumpForce, ForceMode.Impulse); 
     }
 
     public void Move(float v, float h)
     {
+        
+        
+            _cameraForward = new Vector3(_cam.forward.x, _player.transform.forward.y, _cam.forward.z);
+            _cameraRight = new Vector3(_cam.right.x, _player.transform.forward.y, _cam.right.z);
 
-        _cameraForward = new Vector3(_cam.forward.x, _player.transform.forward.y, _cam.forward.z);
-        _cameraRight = new Vector3(_cam.right.x, _player.transform.forward.y, _cam.right.z);
+            //Vector3.Slerp(_player.transform.forward, _cameraForward, Time.deltaTime * _rotateSpeed);
 
-        //Vector3.Slerp(_player.transform.forward, _cameraForward, Time.deltaTime * _rotateSpeed);
+            //_rb.velocity = (_cameraForward * Input.GetAxis("Vertical") * _speed + _cameraRight * Input.GetAxis("Horizontal") * _speed);
+            Vector3 X = _cameraRight * h * _speed;
+            Vector3 Y = new Vector3(0f, _rb.velocity.y, 0f);
+            Vector3 Z = _cameraForward * v * _speed;
+            _rb.velocity = (Z + Y + X);
 
-        //_rb.velocity = (_cameraForward * Input.GetAxis("Vertical") * _speed + _cameraRight * Input.GetAxis("Horizontal") * _speed);
-        Vector3 X = _cameraRight * h * _speed;
-        Vector3 Y = new Vector3(0f,_rb.velocity.y,0f);
-        Vector3 Z= _cameraForward * v * _speed;
-        _rb.velocity = (Z + Y + X);
-
-        //Debug.Log(_cameraForward);
-        //Debug.Log(_cameraRight);
+            //Debug.Log(_cameraForward);
+            //Debug.Log(_cameraRight);
 
 
-        //Vector3 direction = new Vector3(h, 0, v).normalized;
-        //if (direction.magnitude >= 0.1f)
-        //{
-        //    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        //    float angle = Mathf.SmoothDampAngle(_player.GetComponent<Transform>().eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-        //    _player.GetComponent<Transform>().rotation = Quaternion.Euler(0f, angle, 0f);
-        //}
-
+            //Vector3 direction = new Vector3(h, 0, v).normalized;
+            //if (direction.magnitude >= 0.1f)
+            //{
+            //    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            //    float angle = Mathf.SmoothDampAngle(_player.GetComponent<Transform>().eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            //    _player.GetComponent<Transform>().rotation = Quaternion.Euler(0f, angle, 0f);
+            //}
+        
     }
 
     public void Aim()

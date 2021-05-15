@@ -32,7 +32,7 @@ public class RpgAmmo : Bullet
             }
 
         }
-        Instantiate(explotionEffect, transform.position, transform.rotation);
+        Destroy(Instantiate(explotionEffect, transform.position, transform.rotation),3f);
         Destroy(this.gameObject);
     }
 }

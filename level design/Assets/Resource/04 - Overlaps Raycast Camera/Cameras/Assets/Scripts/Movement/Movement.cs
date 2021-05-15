@@ -20,7 +20,7 @@ public class Movement
 
 
 
-    public Movement(Player p, Animator a, Cinemachine.CinemachineFreeLook c)
+    public Movement(Player p, Animator a, Camera c)
     {
         _player = p;
         _rb = _player.GetComponent<Rigidbody>();
@@ -48,7 +48,7 @@ public class Movement
         _cameraForward = new Vector3(_cam.forward.x, _player.transform.forward.y, _cam.forward.z);
         _cameraRight = new Vector3(_cam.right.x, _player.transform.forward.y, _cam.right.z);
 
-        _player.transform.forward = Vector3.Slerp(_player.transform.forward, _cameraForward, Time.deltaTime * _rotateSpeed);
+        //Vector3.Slerp(_player.transform.forward, _cameraForward, Time.deltaTime * _rotateSpeed);
 
         //_rb.velocity = (_cameraForward * Input.GetAxis("Vertical") * _speed + _cameraRight * Input.GetAxis("Horizontal") * _speed);
         Vector3 X = _cameraRight * h * _speed;
@@ -56,8 +56,8 @@ public class Movement
         Vector3 Z= _cameraForward * v * _speed;
         _rb.velocity = (Z + Y + X);
 
-        _animator.SetFloat("Speed_Forward", v); 
-        _animator.SetFloat("Speed_Right", h);
+        //Debug.Log(_cameraForward);
+        //Debug.Log(_cameraRight);
 
 
         //Vector3 direction = new Vector3(h, 0, v).normalized;
@@ -70,6 +70,11 @@ public class Movement
 
     }
 
+    public void Aim()
+    {
+        _cameraForward = new Vector3(_cam.forward.x, _player.transform.forward.y, _cam.forward.z);
+        _player.transform.forward = _cameraForward.normalized;
+    }
 
 
     public void Crouch()

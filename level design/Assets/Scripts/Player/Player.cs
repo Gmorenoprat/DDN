@@ -22,11 +22,12 @@ public class Player : MonoBehaviour , ICollector, IDamageable
     BattleMechanics _battleMechanics;
     SoundMananger _soundMananger;
    // AnimatorController _animatorController;
-    Animator _animator;
-    public Cinemachine.CinemachineFreeLook cam;
+    public Animator _animator;
+    public Camera cam ;
 
     private void Start()
     {
+        cam = Camera.main;
         _animator = this.GetComponent<Animator>();
         _movement = new Movement(this, _animator, cam);
         _battleMechanics = new BattleMechanics(this, _animator);

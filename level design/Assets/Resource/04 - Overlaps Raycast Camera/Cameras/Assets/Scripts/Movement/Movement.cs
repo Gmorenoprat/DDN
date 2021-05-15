@@ -35,7 +35,7 @@ public class Movement
 
     public void Jump()  //SALTO NO VA___ ROLL SI
     {
-        _player.isGrounded = false; 
+        _player.isGrounded = true; 
         if (!_player.isGrounded) return;
         float jumpForce = _jumpForce;
         Vector2 force = new Vector2(0, jumpForce);

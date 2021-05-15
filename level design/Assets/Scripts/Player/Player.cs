@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour , ICollector, IDamageable
+public class Player : Entity , ICollector, IDamageable
 {
 
 

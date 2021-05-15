@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class PlayerController
+public class PlayerController  //ALL THE INPUT HERE
 {
     Player _player;
     Movement _movement;
@@ -19,10 +19,12 @@ public class PlayerController
 
     public void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) //ACA ROLL
         {
             // if (_player.isGrounded) _soundMananger.SoundPlay((int)sounds.JUMP);
-            _movement.Jump();
+           // _movement.Jump();
+            _movement.Roll();
+
         }
 
         float h = Input.GetAxis("Horizontal");

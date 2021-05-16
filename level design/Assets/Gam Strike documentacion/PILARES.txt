@@ -28,6 +28,14 @@ tipos de armas
 					   - humo
 					   - fuego
 		Obtención de armas (revisar)
+		-Expendedoras que canjean armas por puntos
+		-Dos normales cerca de los spawn
+		-Uno con armas mas poderosas en el medio, mas caras.
+
+Sistema de puntos
+		-Partida rehenes: La partida termina con dos condiciones: un tiempo predeterminado, y el rescate de los rehenes vivos.
+				  El rescate de rehenes no significa ganar la partida, sino una alta puntuacion. 
+				  Al final de la partida, el equipo con mas puntos gana.
 
 Tipo de partidas - Rehenes
 		 - Deathmatch

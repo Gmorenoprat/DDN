@@ -40,7 +40,7 @@ public class PlayerController  //ALL THE INPUT HERE
         }
 
         
-        if (v != 0 || h != 0 )
+        if ((v != 0 || h != 0) && !_player.isRolling )
         {
             //_player.GetComponent<Animator>().SetBool("Moving", true);
             _movement.Move(v, h);

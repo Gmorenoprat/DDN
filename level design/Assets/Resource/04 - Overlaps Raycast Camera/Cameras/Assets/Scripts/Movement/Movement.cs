@@ -47,8 +47,9 @@ public class Movement
     {
         Vector3 direction = new Vector3(h, 0, v).normalized;
         _animator.SetTrigger("Rolling");
-        _rb.AddForce(_player.transform.forward * _jumpForce, ForceMode.Impulse);
-        //_rb.AddForce(direction * _jumpForce, ForceMode.Impulse); 
+        if(v == 0 && h == 0) { _rb.AddForce(_player.transform.forward * _jumpForce, ForceMode.Impulse); return; }
+        //_rb.AddForce(_player.transform.forward * _jumpForce, ForceMode.Impulse);
+        _rb.AddForce(direction * _jumpForce, ForceMode.Impulse); 
     }
 
     public void Move(float v, float h)

@@ -26,6 +26,10 @@ public class Player : Entity , ICollector, IDamageable
     public Animator _animator;
     public Camera cam ;
 
+    public Transform CtSpawn;
+    public Transform MafiaSpawn;
+
+
     private void Start()
     {
         cam = Camera.main;
@@ -43,7 +47,8 @@ public class Player : Entity , ICollector, IDamageable
     {
         _control.OnUpdate();
 
-        if (Input.GetKeyDown(KeyCode.Escape)) Die(); //ESTO NO VA ACA
+        if (Input.GetKeyDown(KeyCode.F1)) { this.transform.position = CtSpawn.position; }
+        if (Input.GetKeyDown(KeyCode.F2)) { this.transform.position = MafiaSpawn.position; }
     }
 
     public void Shoot()

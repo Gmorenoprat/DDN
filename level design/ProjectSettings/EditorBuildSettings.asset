@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Chinatown.unity
+    guid: 8916cdb2dac2aff449c6dc42e5ae6e84
+  m_configObjects: {}

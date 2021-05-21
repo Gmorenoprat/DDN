@@ -26,22 +26,27 @@ public class PlayerController  //ALL THE INPUT HERE
 
         if (Input.GetKeyDown(KeyCode.Space)) //ACA ROLL
         {
+            _player.isRolling = true;
+            _movement.RollAim(v, h);
+        }      
+        
+        if (Input.GetKeyUp(KeyCode.Space)) //ACA ROLL
+        {
             // if (_player.isGrounded) _soundMananger.SoundPlay((int)sounds.JUMP);
-           // _movement.Jump();
+            // _movement.Jump();
             _movement.Roll(v, h);
+            _player.isRolling = false;
 
         }
 
         
-
-        if (v != 0 || h != 0)
+        if (v != 0 || h != 0 )
         {
             //_player.GetComponent<Animator>().SetBool("Moving", true);
             _movement.Move(v, h);
         }
-        _movement.Aim();
-        //else _player.GetComponent<Animator>().SetBool("Moving", false);
 
+        if (!Input.GetKeyDown(KeyCode.Space)) _movement.Aim();
 
 
         if (Input.GetKeyDown(KeyCode.Mouse0))

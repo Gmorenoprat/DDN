@@ -9,6 +9,7 @@ public class Player : Entity , ICollector, IDamageable
     [Header("Movement")]
     public float speed;
     public bool isGrounded;
+    public bool isRolling = false;
     [Header("Battle")]
     public bool canAttack;
     public bool isReloading;

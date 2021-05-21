@@ -58,6 +58,11 @@ public class Player : Entity , ICollector, IDamageable
         b.transform.forward = bulletOrigin.transform.forward;
     }
 
+    public void ChangeWeapon(Bullet bullet)
+    {
+        this.bullet = bullet;
+    }
+
     public void Die()
     {
         _animator.SetTrigger("Death");

@@ -24,7 +24,7 @@ public class PlayerController  //ALL THE INPUT HERE
         _player._animator.SetFloat("Speed_Forward", v);
         _player._animator.SetFloat("Speed_Right", h);
 
-        if (Input.GetKeyDown(KeyCode.Space)) //ACA ROLL
+        if (Input.GetKey(KeyCode.Space)) //ACA ROLL
         {
             _player.isRolling = true;
             _movement.RollAim(v, h);
@@ -63,6 +63,10 @@ public class PlayerController  //ALL THE INPUT HERE
             _movement.StandUp();
         }
 
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { _battle.ChangeFiringMode(FiringMode.SINGLESHOOT); }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { _battle.ChangeFiringMode(FiringMode.BURSTSHOOT); }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) { _battle.ChangeFiringMode(FiringMode.AUTOSHOOT); }
 
     }
 }

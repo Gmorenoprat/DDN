@@ -53,6 +53,10 @@ public class PlayerController  //ALL THE INPUT HERE
         {
             _battle.Shoot();
         }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+          //  _battle.Shoot();
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 internal class BurstShoot :  IFiringMode
 {
@@ -11,9 +12,10 @@ internal class BurstShoot :  IFiringMode
         _bulletOrigin = bulletOrigin;
     }
 
-    public void Shoot()
+    public void Shoot(Action shoot)
     {
-                Debug.Log("BURSTSHOOT");
+        shoot();
+        Debug.Log("BURSTSHOOT");
 
     }
 }

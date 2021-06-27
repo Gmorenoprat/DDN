@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 internal class AutomaticShoot : IFiringMode
 {
@@ -11,9 +12,9 @@ internal class AutomaticShoot : IFiringMode
         _bulletOrigin = bulletOrigin;
     }
 
-    public void Shoot()
+    public void Shoot(Action shoot)
     {
-     
+        shoot();
         Debug.Log("AUTOSHOOT");
 
     }

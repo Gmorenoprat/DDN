@@ -22,7 +22,7 @@ public class IA_Patrol<T> : IState<T>
     public void Awake()
     {
         enemy.keepChasing = false;
-        Debug.Log("Awake de Patrol");
+        //Debug.Log("Awake de Patrol");
     }
 
     public void Execute()

@@ -20,7 +20,26 @@ public class Bullet : MonoBehaviour
 
     public virtual void OnCollisionEnter(Collision collision)
     {
-        GameObject.Destroy(this.gameObject);
+        //BulletSpawner.Instance.ReturnBullet(this);
     }
 
+    public Bullet SetPosition(Transform t)
+    {
+        bulletTransform.position = t.position;
+        bulletTransform.forward = -t.forward;
+        return this;
+    }
+
+    //Funcion que va a tener guardada el object pool cuando se la paso desde el Factory al crearlo (turnOnCallback)
+    public static void TurnOn(Bullet b)
+    {
+        //b.Reset();  //Antes de prenderlo ejecuto, si necesito, una funcion para devolver valores necesarios para simular que es la primera vez que la uso
+        b.gameObject.SetActive(true);  //La activo
+    }
+
+    //Funcion que va a tener guardada el object pool cuando se la paso desde el Factory al crearlo  (turnOffCallback)
+    public static void TurnOff(Bullet b)
+    {
+        b.gameObject.SetActive(false); //La deshabilito
+    }
 }

@@ -7,35 +7,45 @@ public abstract class Weapon : MonoBehaviour
 {
     public Ammo ammo;
     public Bullet bullet;
-    protected float realoadTime;
-    private Transform _bulletOrigin;
+    public float realoadTime;
+    public Transform bulletOrigin;
 
     IFiringMode myCurrentFiringMode;
     IFiringMode FMSingleShoot;
     IFiringMode FMBurstShoot;
     IFiringMode FMAutomaticShoot;
+
+    Action shoot;
     void Awake()
     {
-        FMSingleShoot = new SingleShoot(bullet,_bulletOrigin);
-        FMBurstShoot =  new BurstShoot(bullet,_bulletOrigin);
-        FMAutomaticShoot = new AutomaticShoot(bullet,_bulletOrigin);
+        FMSingleShoot = new SingleShoot(bullet, bulletOrigin);
+        FMBurstShoot =  new BurstShoot(bullet, bulletOrigin);
+        FMAutomaticShoot = new AutomaticShoot(bullet, bulletOrigin);
+
+        shoot += ShootOne;
 
     }
-    public void Shoot()
-    {
-        Debug.Log("entraAca");
-        if(myCurrentFiringMode != null) myCurrentFiringMode.Shoot();
-    }
-
     public void ChangeFiringMode(FiringMode tipo)
     {
         if (tipo == FiringMode.SINGLESHOOT) myCurrentFiringMode = FMSingleShoot;
         if (tipo == FiringMode.BURSTSHOOT) myCurrentFiringMode = FMBurstShoot;
         if (tipo == FiringMode.AUTOSHOOT) myCurrentFiringMode = FMAutomaticShoot;
     }
+
+    public void Shoot()
+    {
+        if(myCurrentFiringMode != null) myCurrentFiringMode.Shoot(shoot);
+    }
+
+
     public Transform BulletOrigin
     {
-        set { _bulletOrigin = value; }
+        set { bulletOrigin = value; }
+    }
+
+    private void ShootOne()
+    {
+       Bullet b = BulletSpawner.Instance.pool.GetObject().SetPosition(bulletOrigin);
     }
 }
 

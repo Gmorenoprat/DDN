@@ -55,6 +55,11 @@ public class Player : Entity , ICollector, IDamageable
         if (Input.GetKeyDown(KeyCode.F2)) { this.transform.position = MafiaSpawn.position; }
     }
 
+    public void GetDamage(float dmg)
+    {
+        life -= dmg;
+    }
+
     //public void Die()
     //{
     //    _animator.SetTrigger("Death");

@@ -1,4 +1,5 @@
-﻿public interface IFiringMode 
+﻿using System;
+public interface IFiringMode 
 {
-    void Shoot();
+    void Shoot(Action shoot);
 }

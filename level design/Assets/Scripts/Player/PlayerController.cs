@@ -55,7 +55,7 @@ public class PlayerController  //ALL THE INPUT HERE
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-          //  _battle.Shoot();
+            _battle.StopShoot();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -71,6 +71,14 @@ public class PlayerController  //ALL THE INPUT HERE
         if (Input.GetKeyDown(KeyCode.Alpha1)) { _battle.ChangeFiringMode(FiringMode.SINGLESHOOT); }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { _battle.ChangeFiringMode(FiringMode.BURSTSHOOT); }
         if (Input.GetKeyDown(KeyCode.Alpha3)) { _battle.ChangeFiringMode(FiringMode.AUTOSHOOT); }
+
+        if (Input.GetKeyDown(KeyCode.Q)) { 
+            FiringMode temp = _battle.getCurrentFireMode();
+            if(temp == FiringMode.SINGLESHOOT) _battle.ChangeFiringMode(FiringMode.BURSTSHOOT);
+            if (temp == FiringMode.BURSTSHOOT) _battle.ChangeFiringMode(FiringMode.AUTOSHOOT);
+            if (temp == FiringMode.AUTOSHOOT) _battle.ChangeFiringMode(FiringMode.SINGLESHOOT);
+
+        }
 
     }
 }

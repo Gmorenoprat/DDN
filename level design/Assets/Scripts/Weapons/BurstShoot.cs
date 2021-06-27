@@ -1,21 +1,18 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 
 internal class BurstShoot :  IFiringMode
 {
-    private Bullet bullet;
-    private Transform _bulletOrigin;
-
-    public BurstShoot(Bullet bullet, Transform bulletOrigin)
-    {
-        this.bullet = bullet;
-        _bulletOrigin = bulletOrigin;
-    }
-
-    public void Shoot(Action shoot)
+    IEnumerator IFiringMode.Shoot(Action shoot)
     {
         shoot();
-        Debug.Log("BURSTSHOOT");
-
+        yield return new WaitForSeconds(0.1f);
+        shoot();
+        yield return new WaitForSeconds(0.1f);
+        shoot();
+        yield return new WaitForSeconds(0.1f);
+        yield return null;
+  
     }
 }

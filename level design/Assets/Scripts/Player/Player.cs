@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : Entity , ICollector, IDamageable
 {
-
-
     [Header("Movement")]
     public float speed;
     public bool isGrounded;
@@ -13,6 +11,7 @@ public class Player : Entity , ICollector, IDamageable
     [Header("Battle")]
     public bool canAttack;
     public bool isReloading;
+    public bool isShooting;
     public Bullet bullet;
     public Transform bulletOrigin;
     public Weapon activeWeapon;
@@ -58,6 +57,12 @@ public class Player : Entity , ICollector, IDamageable
     public void GetDamage(float dmg)
     {
         life -= dmg;
+    }
+
+    public bool shooting
+    {
+        get { return isShooting; }
+        set { isShooting = value; }
     }
 
     //public void Die()

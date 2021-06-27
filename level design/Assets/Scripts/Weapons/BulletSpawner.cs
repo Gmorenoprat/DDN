@@ -18,6 +18,7 @@ public class BulletSpawner : MonoBehaviour
         Instance = this;
 
         pool = new ObjectPool<Bullet>(BulletFactory, Bullet.TurnOn, Bullet.TurnOff, bulletStock, true);
+
     }
     
     //Funcion que contiene la logica de la instanciacion de la bala

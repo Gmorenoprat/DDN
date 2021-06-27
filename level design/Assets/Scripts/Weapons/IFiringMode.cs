@@ -1,5 +1,6 @@
 ﻿using System;
+using System.Collections;
 public interface IFiringMode 
 {
-    void Shoot(Action shoot);
+    IEnumerator Shoot(Action shoot);
 }

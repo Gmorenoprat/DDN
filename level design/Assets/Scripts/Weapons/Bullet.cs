@@ -7,20 +7,24 @@ public class Bullet : MonoBehaviour
     public Transform bulletTransform;
     public float speed = 10f;
 
+    public float lifeTime = 3f;
+
     private void Awake()
     {
         bulletTransform = this.GetComponent<Transform>();
-
     }
 
-    void Update()
+void Update()
     {
         bulletTransform.position += bulletTransform.forward * speed * Time.deltaTime;
-    }
+
+        lifeTime -= Time.deltaTime;
+        if (lifeTime <= 0) { BulletSpawner.Instance.ReturnBullet(this); lifeTime = 3f; }
+        }
 
     public virtual void OnCollisionEnter(Collision collision)
     {
-        //BulletSpawner.Instance.ReturnBullet(this);
+       BulletSpawner.Instance.ReturnBullet(this);
     }
 
     public Bullet SetPosition(Transform t)
@@ -41,5 +45,7 @@ public class Bullet : MonoBehaviour
     public static void TurnOff(Bullet b)
     {
         b.gameObject.SetActive(false); //La deshabilito
+        
     }
+    
 }

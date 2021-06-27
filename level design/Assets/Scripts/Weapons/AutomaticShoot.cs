@@ -1,21 +1,15 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 
-internal class AutomaticShoot : IFiringMode
+public class AutomaticShoot : IFiringMode
 {
-    private Bullet bullet;
-    private Transform _bulletOrigin;
-
-    public AutomaticShoot(Bullet bullet, Transform bulletOrigin)
+    IEnumerator IFiringMode.Shoot(Action shoot)
     {
-        this.bullet = bullet;
-        _bulletOrigin = bulletOrigin;
-    }
-
-    public void Shoot(Action shoot)
-    {
-        shoot();
-        Debug.Log("AUTOSHOOT");
+        while (true) { 
+            shoot();
+            yield return new WaitForSeconds(0.1f);
+        }
 
     }
 }

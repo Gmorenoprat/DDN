@@ -15,38 +15,52 @@ public abstract class Weapon : MonoBehaviour
     IFiringMode FMBurstShoot;
     IFiringMode FMAutomaticShoot;
 
+    FiringMode currentFiringMode;
+
+    Coroutine shooting;
     Action shoot;
     void Awake()
     {
-        FMSingleShoot = new SingleShoot(bullet, bulletOrigin);
-        FMBurstShoot =  new BurstShoot(bullet, bulletOrigin);
-        FMAutomaticShoot = new AutomaticShoot(bullet, bulletOrigin);
+        FMSingleShoot = new SingleShoot();
+        FMBurstShoot =  new BurstShoot();
+        FMAutomaticShoot = new AutomaticShoot();
 
         shoot += ShootOne;
 
     }
     public void ChangeFiringMode(FiringMode tipo)
     {
-        if (tipo == FiringMode.SINGLESHOOT) myCurrentFiringMode = FMSingleShoot;
-        if (tipo == FiringMode.BURSTSHOOT) myCurrentFiringMode = FMBurstShoot;
-        if (tipo == FiringMode.AUTOSHOOT) myCurrentFiringMode = FMAutomaticShoot;
+        currentFiringMode = tipo;
+        if (tipo == FiringMode.SINGLESHOOT) { myCurrentFiringMode = FMSingleShoot; }
+        if (tipo == FiringMode.BURSTSHOOT) { myCurrentFiringMode = FMBurstShoot; }
+        if (tipo == FiringMode.AUTOSHOOT) {myCurrentFiringMode = FMAutomaticShoot; }
+    }
+
+    internal FiringMode getCurrentFireMode()
+    {
+        return currentFiringMode;
     }
 
     public void Shoot()
     {
-        if(myCurrentFiringMode != null) myCurrentFiringMode.Shoot(shoot);
+        if (myCurrentFiringMode != null) shooting = StartCoroutine(myCurrentFiringMode.Shoot(shoot));
     }
 
+    public void StopShoot()
+    {
 
+        StopCoroutine(shooting);
+    }
     public Transform BulletOrigin
     {
         set { bulletOrigin = value; }
     }
 
-    private void ShootOne()
+    void ShootOne()
     {
        Bullet b = BulletSpawner.Instance.pool.GetObject().SetPosition(bulletOrigin);
     }
+
 }
 
 public struct Ammo

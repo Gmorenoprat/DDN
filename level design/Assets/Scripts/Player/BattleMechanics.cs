@@ -23,6 +23,11 @@ public class BattleMechanics
         _animator.SetTrigger("Shoot"); 
     }
 
+    public void StopShoot()
+    {
+        _weapon.StopShoot();
+    }
+
     public void ChangeWeapon(Weapon w)
     {
         _weapon = w;
@@ -31,5 +36,10 @@ public class BattleMechanics
     public void ChangeFiringMode(FiringMode FM)
     {
         _weapon.ChangeFiringMode(FM);
+    }
+
+    public FiringMode getCurrentFireMode()
+    {
+        return _weapon.getCurrentFireMode();
     }
 }

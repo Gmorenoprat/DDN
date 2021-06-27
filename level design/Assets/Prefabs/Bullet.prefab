@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletTransform: {fileID: 0}
-  speed: 40
+  speed: 80
 --- !u!82 &4747873567369652444
 AudioSource:
   m_ObjectHideFlags: 0

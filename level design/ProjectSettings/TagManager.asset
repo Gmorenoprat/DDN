@@ -19,26 +19,26 @@ TagManager:
   - Lighting
   - Ground
   - Postprocessing
-  - CTZone
-  - ct
-  - garage
-  - auto
-  - ct corridor
-  - calle
-  - hide
-  - depto
-  - cocina
   - MiniMap
-  - resto
-  - medio
-  - rehenB
-  - rehenA
-  - mafia spawn
-  - arcade
-  - largo
-  - ducto
-  - street corridor
-  - mafia corridor
+  - Obstacule
+  - Wall
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   m_SortingLayers:
   - name: Fire

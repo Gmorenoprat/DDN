@@ -27,20 +27,18 @@ public class PlayerController  //ALL THE INPUT HERE
         if (Input.GetKey(KeyCode.Space)) //ACA ROLL
         {
             _player.isRolling = true;
-            _movement.RollAim(v, h);
-        }      
-        
+            _movement.ChangeMovementMode(MovementMode.PREROLL);
+        }
+
         if (Input.GetKeyUp(KeyCode.Space)) //ACA ROLL
         {
-            // if (_player.isGrounded) _soundMananger.SoundPlay((int)sounds.JUMP);
-            // _movement.Jump();
-            _movement.Roll(v, h);
-            _player.isRolling = false;
+            _movement.Roll();
+            _movement.ChangeMovementMode(MovementMode.NORMAL);
 
         }
 
         
-        if ((v != 0 || h != 0) && !_player.isRolling )
+        if ((v != 0 || h != 0))
         {
             //_player.GetComponent<Animator>().SetBool("Moving", true);
             _movement.Move(v, h);
@@ -60,14 +58,16 @@ public class PlayerController  //ALL THE INPUT HERE
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            _movement.Crouch();
+            _movement.ChangeMovementMode(MovementMode.CROUCHED);
+            _player._animator.SetBool("Crouched", true);
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            _movement.StandUp();
+            _movement.ChangeMovementMode(MovementMode.NORMAL);
+            _player._animator.SetBool("Crouched", false);
         }
 
-
+        //UsarEstoParaCambiarDeArma
         if (Input.GetKeyDown(KeyCode.Alpha1)) { _battle.ChangeFiringMode(FiringMode.SINGLESHOOT); }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { _battle.ChangeFiringMode(FiringMode.BURSTSHOOT); }
         if (Input.GetKeyDown(KeyCode.Alpha3)) { _battle.ChangeFiringMode(FiringMode.AUTOSHOOT); }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   Pf: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!1001 &1330708685045706927
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21,10 +22,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1988219272030991705, guid: 0e48b1ea6930c9f4d8d1dd30d8b9e7d3,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 8562189254791716090, guid: 0e48b1ea6930c9f4d8d1dd30d8b9e7d3,
         type: 3}
       propertyPath: m_Name
-      value: enemy B
+      value: enemy B Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8562189254791716091, guid: 0e48b1ea6930c9f4d8d1dd30d8b9e7d3,
         type: 3}

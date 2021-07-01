@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour, IObservable
+
 {
     public Ammo ammo;
     public Bullet bullet;
@@ -19,6 +20,11 @@ public abstract class Weapon : MonoBehaviour
 
     Coroutine shooting;
     Action shoot;
+
+    List<IObserver> _allObserver = new List<IObserver>();
+
+    public Ammo GetAmmo { get { return ammo; } }
+
     void Awake()
     {
         FMSingleShoot = new SingleShoot();
@@ -27,6 +33,10 @@ public abstract class Weapon : MonoBehaviour
 
         shoot += ShootOne;
 
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R)) Reload();
     }
     public void ChangeFiringMode(FiringMode tipo)
     {
@@ -59,14 +69,51 @@ public abstract class Weapon : MonoBehaviour
     void ShootOne()
     {
        Bullet b = BulletSpawner.Instance.pool.GetObject().SetPosition(bulletOrigin);
+        ammo.AMMO--;
+        Debug.Log(ammo.AMMO);
+        NotifyToObservers("UpdateAmmo");
     }
 
+    void Reload()
+    {
+        if (ammo.CLIPS == 0) return;
+        ammo.AMMO = ammo.MAX_LOADED_AMMO;
+        ammo.CLIPS--;
+        NotifyToObservers("reload");
+
+    }
+
+
+    public void NotifyToObservers(string action)
+    {
+
+        for (int i = _allObserver.Count - 1; i >= 0; i--)
+        {
+            _allObserver[i].Notify(action);
+        }
+    }
+
+    public void Subscribe(IObserver obs)
+    {
+        if (!_allObserver.Contains(obs))
+        {
+            _allObserver.Add(obs);
+        }
+    }
+
+    public void Unsubscribe(IObserver obs)
+    {
+        if (_allObserver.Contains(obs))
+        {
+            _allObserver.Remove(obs);
+        }
+    }
 }
 
 public struct Ammo
 {
-    public float AMMO;
-    public float MAX_LOADED_AMMO;
+    public int AMMO;
+    public int MAX_LOADED_AMMO;
     public int CLIPS;
 }
 

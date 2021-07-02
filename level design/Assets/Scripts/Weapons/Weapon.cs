@@ -14,7 +14,7 @@ public abstract class Weapon : MonoBehaviour, IObservable
     IFiringMode myCurrentFiringMode;
     IFiringMode FMSingleShoot;
     IFiringMode FMBurstShoot;
-    IFiringMode FMAutomaticShoot;
+    IFiringMode FMAutomaticShoot; 
 
     FiringMode currentFiringMode;
 
@@ -24,6 +24,8 @@ public abstract class Weapon : MonoBehaviour, IObservable
     List<IObserver> _allObserver = new List<IObserver>();
 
     public Ammo GetAmmo { get { return ammo; } }
+    public Transform BulletOrigin{ get { return bulletOrigin; } private set { bulletOrigin = value; }    }
+
 
     void Awake()
     {
@@ -34,11 +36,8 @@ public abstract class Weapon : MonoBehaviour, IObservable
         shoot += ShootOne;
 
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R)) Reload();
-    }
-    public void ChangeFiringMode(FiringMode tipo)
+
+     public void ChangeFiringMode(FiringMode tipo)
     {
         currentFiringMode = tipo;
         if (tipo == FiringMode.SINGLESHOOT) { myCurrentFiringMode = FMSingleShoot; }
@@ -61,26 +60,24 @@ public abstract class Weapon : MonoBehaviour, IObservable
 
         StopCoroutine(shooting);
     }
-    public Transform BulletOrigin
-    {
-        set { bulletOrigin = value; }
-    }
 
     void ShootOne()
     {
-       Bullet b = BulletSpawner.Instance.pool.GetObject().SetPosition(bulletOrigin);
+        if (ammo.AMMO <= 0) return;
+        Bullet b = BulletSpawner.Instance.pool.GetObject().SetPosition(bulletOrigin);
         ammo.AMMO--;
-        Debug.Log(ammo.AMMO);
         NotifyToObservers("UpdateAmmo");
+
     }
 
-    void Reload()
+
+    //INICIAR CORUTINA DE RELOAD TIME
+    public void Reload()
     {
         if (ammo.CLIPS == 0) return;
         ammo.AMMO = ammo.MAX_LOADED_AMMO;
         ammo.CLIPS--;
-        NotifyToObservers("reload");
-
+        NotifyToObservers("UpdateAmmo");
     }
 
 

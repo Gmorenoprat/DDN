@@ -2,23 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FragNade : MonoBehaviour
+public class FragNade : Grenade
 {
-    public float force;
-    public float explosionDistance;
-    public float explotionTime = 3f;
-    public LayerMask mask;
-
-    public GameObject explotionEffect;
-
     private void Start()
     {
-        Invoke("Explode", explotionTime);
+        grenadeType = GrenadeType.FRAG_NADE;
     }
 
-    public void Explode()
+    protected override void Explode()
     {
-        //Sphere me permite generar un volumen de tipo esfera
         Collider[] collection = Physics.OverlapSphere(transform.position, explosionDistance, mask);
 
         foreach (var item in collection)
@@ -27,13 +19,13 @@ public class FragNade : MonoBehaviour
 
             if (rb != null)
             {
-                var distace = (item.transform.position - transform.position);
+                var distace = (item.transform.position - transform.position);//for damage?
                 rb.AddExplosionForce(force, transform.position, explosionDistance, 1f, ForceMode.Impulse);
             }
 
         }
-        Destroy(Instantiate(explotionEffect, transform.position, transform.rotation),3f);
-        Destroy(this.gameObject);
+        FXSpawner.Instance.fragPool.GetObject().SetPosition(this.transform);
+        GrenadeSpawner.Instance.ReturnGrenade(this);
     }
 }
 

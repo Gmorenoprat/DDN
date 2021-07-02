@@ -6,65 +6,58 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour, IObserver
 {
     public int Life;
-    public int NumberOfBull;
+
     public Image[] Bull;
     public Sprite FullBull;
     public Sprite EmptyBull;
    
 
     IObservable _Weapon;
+    IObservable _Grenades;
     Weapon ActiveWeapon;
+    Grenades ActiveGrenades;
     
-    public Text AmmonRifle;
+    public Text ammo;
     public Text MaxAmmo;
   
     public Text Granade;
-    public Text MaxGranade;
+//    public Text MaxGranade;
 
-    private void Awake()
-    {
-        ActiveWeapon = this.GetComponent<Player>().ActiveWeapon;
-        _Weapon = this.GetComponent<Player>().ActiveWeapon;
-        _Weapon.Subscribe(this);
-    }
     private void Start()
     {
-       
-       
-        UpdateAmmo();
+        Player player = this.GetComponent<Player>();
+        ActiveWeapon = player.ActiveWeapon;
+        ActiveGrenades = player.ActiveGrenades;
+        _Weapon = player.ActiveWeapon;
+        _Grenades = player.ActiveGrenades;
+        _Weapon.Subscribe(this);
+        _Grenades.Subscribe(this);
+        UpdateAmmoCount();
+        UpdateGranadeCount();
 
-    }
 
-   public void UpdateAmmo()
+     }
+
+    public void UpdateAmmoCount()
     {
-        if (NumberOfBull <= 0) return;
+        ammo.text = ActiveWeapon.GetAmmo.AMMO.ToString();  
         MaxAmmo.text = "/"+(ActiveWeapon.GetAmmo.MAX_LOADED_AMMO * ActiveWeapon.GetAmmo.CLIPS).ToString();
-        AmmonRifle.text = ActiveWeapon.GetAmmo.AMMO.ToString();  
-        NumberOfBull = ActiveWeapon.GetAmmo.AMMO;
     }
-    public void reload()
-    {
-        if (NumberOfBull < 1) NumberOfBull = ActiveWeapon.GetAmmo.MAX_LOADED_AMMO;
-        UpdateAmmo();
-    }
+
     public void LifeUpdate()
     {
 
     }
 
-    public void UpdateGranade()
+    public void UpdateGranadeCount()
     {
-
+        Granade.text = ActiveGrenades.grenadeHolder[ActiveGrenades.activeGranade].ToString();
     }
     public void Notify(string action)
     {
-        if (action=="UpdateAmmo")
+        if (action== "UpdateAmmo")
         {
-            UpdateAmmo();
-        }
-        if(action=="reload")
-        {
-            reload();
+            UpdateAmmoCount();
         }
         if (action=="LifeUpdate")
         {
@@ -72,7 +65,7 @@ public class UIManager : MonoBehaviour, IObserver
         }
         if(action=="UpdateGranade")
         {
-
+            UpdateGranadeCount();
         }
     }
 }

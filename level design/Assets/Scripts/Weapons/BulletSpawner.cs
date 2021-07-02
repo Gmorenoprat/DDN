@@ -24,7 +24,9 @@ public class BulletSpawner : MonoBehaviour
     //Funcion que contiene la logica de la instanciacion de la bala
     public Bullet BulletFactory()
     {
-        return Instantiate(bulletPrefab);
+        Bullet b = Instantiate(bulletPrefab);
+        b.transform.parent = this.transform;
+        return b;
     }
 
     //Funcion que en este caso se llama desde la bala para ejecutar la devolucion del objeto al pool

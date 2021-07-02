@@ -37,7 +37,7 @@ public class PlayerController  //ALL THE INPUT HERE
 
         }
 
-        
+
         if ((v != 0 || h != 0))
         {
             //_player.GetComponent<Animator>().SetBool("Moving", true);
@@ -55,6 +55,10 @@ public class PlayerController  //ALL THE INPUT HERE
         {
             _battle.StopShoot();
         }
+        if (Input.GetKeyDown(KeyCode.R)) {
+            _battle.ReloadActiveWeapon();
+        }
+
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -74,11 +78,22 @@ public class PlayerController  //ALL THE INPUT HERE
 
         if (Input.GetKeyDown(KeyCode.Q)) { 
             FiringMode temp = _battle.getCurrentFireMode();
-            if(temp == FiringMode.SINGLESHOOT) _battle.ChangeFiringMode(FiringMode.BURSTSHOOT);
-            if (temp == FiringMode.BURSTSHOOT) _battle.ChangeFiringMode(FiringMode.AUTOSHOOT);
-            if (temp == FiringMode.AUTOSHOOT) _battle.ChangeFiringMode(FiringMode.SINGLESHOOT);
+            if(temp == FiringMode.SINGLESHOOT) _battle.ChangeFiringMode(FiringMode.BURSTSHOOT); //
+            if (temp == FiringMode.BURSTSHOOT) _battle.ChangeFiringMode(FiringMode.AUTOSHOOT);  //TODO
+            if (temp == FiringMode.AUTOSHOOT) _battle.ChangeFiringMode(FiringMode.SINGLESHOOT); //
 
         }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            _battle.launchGranade();
+        }
+        if (Input.GetKeyDown(KeyCode.T)) //SOLO HAY UNA DE MOMENTO
+        {
+            _battle.changeGranade();
+        }
+
+
 
     }
 }

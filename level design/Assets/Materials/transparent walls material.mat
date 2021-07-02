@@ -44,4 +44,4 @@ Material:
     - _transparency: 0.13
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Player: {r: -850.2, g: 10.95, b: 152.6, a: 0}
+    - _Player: {r: -702.4, g: 10.95, b: 130.6, a: 0}

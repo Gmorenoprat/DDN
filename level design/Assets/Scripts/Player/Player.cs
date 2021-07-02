@@ -16,6 +16,8 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public Bullet bullet;
     public Transform bulletOrigin;
     public Weapon activeWeapon;
+    public Transform grenadeOrigin;
+    public Grenades grenades;
 
     [Header("HP/AR")]
     public float life;
@@ -28,6 +30,7 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public Camera cam ;
 
     public Weapon ActiveWeapon{ get { return activeWeapon; } set { activeWeapon = value; } }
+    public Grenades ActiveGrenades{ get { return grenades; } set { grenades = value; } }
 
    // AnimatorController _animatorController;
 
@@ -35,13 +38,14 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public Transform CtSpawn;
     public Transform MafiaSpawn;
 
-
     private void Start()
     {
         cam = Camera.main;
+        grenades.setSpawnPos = grenadeOrigin;
+        grenades.setPlayerRB = this.GetComponent<Rigidbody>();
         _animator = this.GetComponent<Animator>();
         _movement = new Movement(this, _animator, cam);
-        _battleMechanics = new BattleMechanics(this, activeWeapon, _animator);
+        _battleMechanics = new BattleMechanics(this, activeWeapon, grenades, _animator);
         _control = new PlayerController(this, _movement, _battleMechanics, null);
         //_soundMananger = new SoundMananger(this);
        // _animatorController = new AnimatorController(_animator);

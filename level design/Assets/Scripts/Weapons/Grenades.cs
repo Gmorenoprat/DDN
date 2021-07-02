@@ -4,29 +4,44 @@ using UnityEngine;
 
 public class Grenades : MonoBehaviour, IObservable
 {
+    public float range = 30f;
+    
     public Transform spawnPosition;
     public Rigidbody playerRb;
-    
-    public Grenade[] granadesHolder ;
-    private int[] _grenadeHolderCounter = new int[4] { 3,3,3,3};
 
-    public Grenade _activeGranade;
-
+    public Grenade[] granadesHolder;
+    private int[] _grenadeHolderCounter = new int[4] { 3,3,3,3}; //Crear seter
     private int _granadeSelected = 0;
-
+    public Grenade _activeGranade;
     public int[] grenadeCount;
-
+    
     List<IObserver> _allObserver = new List<IObserver>();
 
-    public float range = 30f;
 
-    
-
-    public Transform setSpawnPos { set { spawnPosition = value; } }
-    public Rigidbody setPlayerRB { set { playerRb = value; } }
+    #region Propiedades
     public int activeGranade { get { return _granadeSelected; } set { _granadeSelected = value; } }
     public int[] grenadeHolder { get { return _grenadeHolderCounter; } set { _grenadeHolderCounter = value; } }
 
+    public float setRange { get; set; }
+
+    //public Transform setSpwnPos { set { spawnPosition = value; } }
+
+    //public Rigidbody setPlyrRB { set { playerRb = value; } }
+    #endregion
+
+    #region BUILDER
+    public Grenades setSpawnPos(Transform transform)
+    {
+        spawnPosition.position = transform.position;
+        spawnPosition.rotation = transform.rotation;
+        return this;
+    }
+    public Grenades setPlayerRb(Rigidbody rb)
+    {
+        playerRb = rb;
+        return this;
+    }
+    #endregion
     public void Start()
     {
         NotifyToObservers("UpdateGranade");
@@ -39,12 +54,12 @@ public class Grenades : MonoBehaviour, IObservable
         nadeInstance.Launch(playerRb.velocity);
         NotifyToObservers("UpdateGranade");
     }
-
     public void ChangeNadeType()
     {
         _granadeSelected = _granadeSelected++ % granadesHolder.Length; 
     }
 
+    #region IObservable
     public void NotifyToObservers(string action)
     {
 
@@ -69,6 +84,7 @@ public class Grenades : MonoBehaviour, IObservable
             _allObserver.Remove(obs);
         }
     }
+    #endregion
 }
 
 

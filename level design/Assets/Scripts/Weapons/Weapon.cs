@@ -11,10 +11,10 @@ public abstract class Weapon : MonoBehaviour, IObservable
     public float realoadTime;
     public Transform bulletOrigin;
 
-    IFiringMode myCurrentFiringMode;
-    IFiringMode FMSingleShoot;
-    IFiringMode FMBurstShoot;
-    IFiringMode FMAutomaticShoot; 
+    protected IFiringMode myCurrentFiringMode;
+    protected IFiringMode FMSingleShoot;
+    protected IFiringMode FMBurstShoot;
+    protected IFiringMode FMAutomaticShoot; 
 
     FiringMode currentFiringMode;
 
@@ -23,11 +23,13 @@ public abstract class Weapon : MonoBehaviour, IObservable
 
     List<IObserver> _allObserver = new List<IObserver>();
 
+    public event Action<Ammo> onUpdateAmmo;
+
     public Ammo GetAmmo { get { return ammo; } }
     public Transform BulletOrigin{ get { return bulletOrigin; } private set { bulletOrigin = value; }    }
 
 
-    void Awake()
+    protected virtual void Awake()
     {
         FMSingleShoot = new SingleShoot();
         FMBurstShoot =  new BurstShoot();
@@ -41,8 +43,8 @@ public abstract class Weapon : MonoBehaviour, IObservable
     {
         currentFiringMode = tipo;
         if (tipo == FiringMode.SINGLESHOOT) { myCurrentFiringMode = FMSingleShoot; }
-        if (tipo == FiringMode.BURSTSHOOT) { myCurrentFiringMode = FMBurstShoot; }
-        if (tipo == FiringMode.AUTOSHOOT) {myCurrentFiringMode = FMAutomaticShoot; }
+        else if (tipo == FiringMode.BURSTSHOOT) { myCurrentFiringMode = FMBurstShoot; }
+        else if (tipo == FiringMode.AUTOSHOOT) {myCurrentFiringMode = FMAutomaticShoot; }
     }
 
     internal FiringMode getCurrentFireMode()
@@ -66,7 +68,8 @@ public abstract class Weapon : MonoBehaviour, IObservable
         if (ammo.AMMO <= 0) return;
         Bullet b = BulletSpawner.Instance.pool.GetObject().SetPosition(bulletOrigin);
         ammo.AMMO--;
-        NotifyToObservers("UpdateAmmo");
+        onUpdateAmmo(ammo);
+        //NotifyToObservers("UpdateAmmo");
 
     }
 

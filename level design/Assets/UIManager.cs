@@ -12,8 +12,8 @@ public class UIManager : MonoBehaviour, IObserver
     public Sprite EmptyBull;
    
 
-    IObservable _Weapon;
-    IObservable _Grenades;
+    //IObservable _Weapon;
+    //IObservable _Grenades;
     Weapon ActiveWeapon;
     Grenades ActiveGrenades;
     
@@ -21,33 +21,29 @@ public class UIManager : MonoBehaviour, IObserver
     public Text MaxAmmo;
   
     public Text Granade;
-//    public Text MaxGranade;
 
     private void Start()
     {
         Player player = this.GetComponent<Player>();
         ActiveWeapon = player.ActiveWeapon;
         ActiveGrenades = player.ActiveGrenades;
-        _Weapon = player.ActiveWeapon;
-        _Grenades = player.ActiveGrenades;
-        _Weapon.Subscribe(this);
-        _Grenades.Subscribe(this);
-        UpdateAmmoCount();
-        UpdateGranadeCount();
+        // _Weapon = player.ActiveWeapon;
+        //_Grenades = player.ActiveGrenades;
+        //  _Weapon.Subscribe(this);
+        //_Grenades.Subscribe(this);
 
+        ActiveWeapon.onUpdateAmmo += UpdateAmmoCount;
+        UpdateGranadeCount();
 
      }
 
-    public void UpdateAmmoCount()
+    public void UpdateAmmoCount(Ammo ammo)
     {
-        ammo.text = ActiveWeapon.GetAmmo.AMMO.ToString();  
+        this.ammo.text = ammo.AMMO.ToString();  
         MaxAmmo.text = "/"+(ActiveWeapon.GetAmmo.MAX_LOADED_AMMO * ActiveWeapon.GetAmmo.CLIPS).ToString();
     }
 
-    public void LifeUpdate()
-    {
-
-    }
+    public void LifeUpdate(){}
 
     public void UpdateGranadeCount()
     {
@@ -57,12 +53,11 @@ public class UIManager : MonoBehaviour, IObserver
     {
         if (action== "UpdateAmmo")
         {
-            UpdateAmmoCount();
+         //UpdateAmmoCount();
         }
-        if (action=="LifeUpdate")
-        {
 
-        }
+        if (action=="LifeUpdate"){}
+
         if(action=="UpdateGranade")
         {
             UpdateGranadeCount();

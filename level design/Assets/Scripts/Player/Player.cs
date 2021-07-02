@@ -23,16 +23,17 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public float life;
     public float armor;
     PlayerController _control;
+    PlayerView _playerView;
     Movement _movement;
     BattleMechanics _battleMechanics;
     SoundMananger _soundMananger;
+    AnimatorController _animatorController;
     public Animator _animator;
     public Camera cam ;
 
     public Weapon ActiveWeapon{ get { return activeWeapon; } set { activeWeapon = value; } }
     public Grenades ActiveGrenades{ get { return grenades; } set { grenades = value; } }
 
-   // AnimatorController _animatorController;
 
     //Debug pourpuse
     public Transform CtSpawn;
@@ -41,17 +42,14 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     private void Start()
     {
         cam = Camera.main;
-        grenades.setSpawnPos = grenadeOrigin;
-        grenades.setPlayerRB = this.GetComponent<Rigidbody>();
+        grenades.setSpawnPos(grenadeOrigin).setPlayerRb(this.GetComponent<Rigidbody>());
         _animator = this.GetComponent<Animator>();
+        _soundMananger = new SoundMananger();
+        _animatorController = new AnimatorController(_animator);
+        _playerView = new PlayerView(this, _animatorController, _soundMananger);
         _movement = new Movement(this, _animator, cam);
         _battleMechanics = new BattleMechanics(this, activeWeapon, grenades, _animator);
-        _control = new PlayerController(this, _movement, _battleMechanics, null);
-        //_soundMananger = new SoundMananger(this);
-       // _animatorController = new AnimatorController(_animator);
-
-        _animator.SetBool("IsShooting", true); //ESTO NO VA ACA
-
+        _control = new PlayerController(this, _movement, _battleMechanics, _playerView);
     }
     void Update()
     {

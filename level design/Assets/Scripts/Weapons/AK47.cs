@@ -5,8 +5,10 @@ using UnityEngine;
 public class AK47 : Weapon
 {
 
-    public void Start()
+    protected override void Awake()
     {
+        base.Awake();
+
         Ammo am = new Ammo();
         am.MAX_LOADED_AMMO = 30;
         am.AMMO = 30;
@@ -14,7 +16,8 @@ public class AK47 : Weapon
 
         ammo = am;
 
-        ChangeFiringMode(FiringMode.AUTOSHOOT);
+        myCurrentFiringMode = FMAutomaticShoot;
+        
     }
 
 }

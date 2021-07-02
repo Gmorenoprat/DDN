@@ -80,7 +80,6 @@ public class Movement
     public void Roll()
     {
         Vector3 direction = _player.transform.forward;
-        _animator.SetTrigger("Rolling");
         _rb.AddForce(direction * _jumpForce, ForceMode.Impulse);
         _player.isRolling = false;
     }

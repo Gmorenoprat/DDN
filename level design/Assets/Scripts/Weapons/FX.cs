@@ -15,16 +15,10 @@ public class FX : MonoBehaviour
         fxTransform = this.GetComponent<Transform>();
     }
 
-    private void OnEnable()
+    private void OnEnable()  //VER SI APLICA A TODOS LOS FX
     {
         Invoke("returnFX",lifeTime);
     }
-
-    private void returnFX()
-    {
-        FXSpawner.Instance.ReturnFX(this);
-    }
-
     public FX SetPosition(Transform t)
     {
         fxTransform.position = t.position;
@@ -32,6 +26,10 @@ public class FX : MonoBehaviour
         return this;
     }
 
+    private void returnFX()
+    {
+        FXSpawner.Instance.ReturnFX(this);
+    }
     public static void TurnOn(FX fx)
     {
         fx.gameObject.SetActive(true); 
@@ -42,7 +40,6 @@ public class FX : MonoBehaviour
         fx.gameObject.SetActive(false); 
 
     }
-
     public enum FXType
     {
         FRAG_EXPLOTION,

@@ -9,7 +9,22 @@ public class AnimatorController
         _anim = a;
     }
 
+    public void Start()
+    {
+        _anim.SetBool("IsShooting", true); 
+    }
 
+    public void Move(float h, float v) {
+        _anim.SetFloat("Speed_Forward", v);
+        _anim.SetFloat("Speed_Right", h);
+    }
+    public void Roll()
+    {
+        _anim.SetTrigger("Rolling");
+    }
 
-
+    public void Crouch(bool crouch)
+    {
+        _anim.SetBool("Crouched", crouch);
+    }
 }

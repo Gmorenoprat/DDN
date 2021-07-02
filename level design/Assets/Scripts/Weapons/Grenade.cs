@@ -16,9 +16,7 @@ public abstract class Grenade : MonoBehaviour
     public FX explotionEffect;
 
     public GrenadeType grenadeType;
-
     protected abstract void Explode();
-
 
     public Grenade setSpawnPosition(Transform pos)
     {
@@ -30,10 +28,7 @@ public abstract class Grenade : MonoBehaviour
     {
         this.GetComponent<Rigidbody>().AddForce((this.transform.forward * range) + playerVelocity, ForceMode.Impulse);
         Invoke("Explode", explotionTime);
-
     }
-
-
 
     public static void TurnOn(Grenade nade)
     {
@@ -43,7 +38,6 @@ public abstract class Grenade : MonoBehaviour
     public static void TurnOff(Grenade nade)
     {
         nade.gameObject.SetActive(false);
-
     }
 
     public enum GrenadeType
@@ -54,7 +48,7 @@ public abstract class Grenade : MonoBehaviour
 }
 
 
-
+///TO:DO_ VER COMO MOSTRAR LINEA VISUAL DE GRANADA
 //public Rigidbody rb;
 //public GameObject cursor;
 //public LayerMask layer;

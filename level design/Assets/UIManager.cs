@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour, IObserver
     //IObservable _Weapon;
     //IObservable _Grenades;
     Weapon ActiveWeapon;
-    Grenades ActiveGrenades;
+    GrenadeHolder ActiveGrenades;
     
     public Text ammo;
     public Text MaxAmmo;

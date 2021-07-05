@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grenades : MonoBehaviour, IObservable
+public class GrenadeHolder : IObservable
 {
-    public float range = 30f;
+    //private float range = 30f;
     
-    public Transform spawnPosition;
-    public Rigidbody playerRb;
+    private Transform _spawnPosition;
+    private Rigidbody _playerRb;
 
-    public Grenade[] granadesHolder;
+    private Grenade[] granadesHolder;
     private int[] _grenadeHolderCounter = new int[4] { 3,3,3,3}; //Crear seter
     private int _granadeSelected = 0;
-    public Grenade _activeGranade;
-    public int[] grenadeCount;
+    private Grenade _activeGranade;
+    private int[] grenadeCount;
     
     List<IObserver> _allObserver = new List<IObserver>();
 
@@ -30,15 +30,15 @@ public class Grenades : MonoBehaviour, IObservable
     #endregion
 
     #region BUILDER
-    public Grenades setSpawnPos(Transform transform)
+    public GrenadeHolder setSpawnPos(Transform t)
     {
-        spawnPosition.position = transform.position;
-        spawnPosition.rotation = transform.rotation;
+        _spawnPosition.position = t.position;
+        _spawnPosition.rotation = t.rotation;
         return this;
     }
-    public Grenades setPlayerRb(Rigidbody rb)
+    public GrenadeHolder setPlayerRb(Rigidbody rb)
     {
-        playerRb = rb;
+        _playerRb = rb;
         return this;
     }
     #endregion
@@ -50,8 +50,8 @@ public class Grenades : MonoBehaviour, IObservable
     {
         if (_grenadeHolderCounter[_granadeSelected] == 0) return;
         _grenadeHolderCounter[_granadeSelected]--;
-        Grenade nadeInstance = GrenadeSpawner.Instance.fragPool.GetObject().setSpawnPosition(spawnPosition);// Instantiate(granadesHolder[_granadeSelected], spawnPosition.position, spawnPosition.rotation);
-        nadeInstance.Launch(playerRb.velocity);
+        Grenade nadeInstance = GrenadeSpawner.Instance.fragPool.GetObject().setSpawnPosition(_spawnPosition);// Instantiate(granadesHolder[_granadeSelected], spawnPosition.position, spawnPosition.rotation);
+        nadeInstance.Launch(_playerRb.velocity);
         NotifyToObservers("UpdateGranade");
     }
     public void ChangeNadeType()

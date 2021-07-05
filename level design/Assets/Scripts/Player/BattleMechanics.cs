@@ -3,26 +3,18 @@
 public class BattleMechanics
 {
     Player _player;
-    Bullet _bullet;
-    Transform _bulletOrigin;
     Weapon _weapon;
-    Grenades _grenades;
-    Animator _animator;
-    public BattleMechanics(Player p, Weapon w, Grenades g, Animator a)
+    GrenadeHolder _grenades;
+    public BattleMechanics(Player p, Weapon w, GrenadeHolder g)
     {
         _player = p;
-        _bullet = _player.bullet;
-        _bulletOrigin = _player.bulletOrigin;
-        _animator = a;
         _weapon = w;
         _grenades = g;
-        //_rb = _player.GetComponent<Rigidbody>();
     }
 
     public void Shoot()
     {
         _weapon.Shoot();
-        _animator.SetTrigger("Shoot"); 
     }
 
     public void StopShoot()

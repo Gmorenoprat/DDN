@@ -6,10 +6,10 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour, IObservable
 
 {
-    public Ammo ammo;
-    public Bullet bullet;
-    public float realoadTime;
-    public Transform bulletOrigin;
+    protected Ammo ammo;
+    protected Bullet bullet;
+    protected float realoadTime;
+    protected Transform bulletOrigin;
 
     protected IFiringMode myCurrentFiringMode;
     protected IFiringMode FMSingleShoot;

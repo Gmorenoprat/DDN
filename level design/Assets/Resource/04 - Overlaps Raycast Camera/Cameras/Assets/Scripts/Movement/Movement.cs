@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Movement 
+public class Movement
 {
     Player _player;
-    Animator _animator;
     Rigidbody _rb;
     float _jumpForce = 2500f;
-    float _rotateSpeed = 500f;
+    //float _rotateSpeed = 500f;
 
-    float _speed ;
+    float _speed;
     public float turnSmoothTime = 0.1f;
-    float turnSmoothVelocity;
+    //float turnSmoothVelocity;
 
     Transform _cam;
     Vector3 _cameraForward;
@@ -30,12 +29,11 @@ public class Movement
 
         myCurrentMovementMode = MMNormal;
     }
-    public Movement(Player p, Animator a, Camera c)
+    public Movement(Player p, Camera c)
     {
         _player = p;
         _rb = _player.GetComponent<Rigidbody>();
         _speed = _player.speed;
-        _animator = a;
 
         _cam = c.transform;
         _cameraForward = new Vector3(_cam.forward.x, _player.transform.forward.y, _cam.forward.z);
@@ -84,13 +82,7 @@ public class Movement
         _player.isRolling = false;
     }
 
-
-    public void Run()
-    {
-        _animator.SetBool("IsShooting", false);
-    }
 }
-
 
 public enum MovementMode
 {

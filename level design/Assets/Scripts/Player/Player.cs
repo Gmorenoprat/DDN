@@ -32,7 +32,8 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public Animator _animator;
     public Camera cam;
 
-    public Weapon ActiveWeapon{ get { return activeWeapon; } set { activeWeapon = value; } }
+    public Weapon ActiveWeapon{ get { return activeWeapon; } set { activeWeapon = value; } }  //SET AND RELOAD
+
     public GrenadeHolder ActiveGrenades{ get { return grenades; } set { grenades = value; } }
 
     //Debug pourpuse
@@ -41,17 +42,19 @@ public class Player : Entity , ICollector, IDamageable, IObservable
 
     private void Start()
     {
-        cam = Camera.main;
-        grenades = new GrenadeHolder();
-        grenades.setSpawnPos(grenadeOrigin).setPlayerRb(this.GetComponent<Rigidbody>());
-
+        _control = new PlayerController(this);
         _animator = this.GetComponent<Animator>();
+
+        cam = Camera.main;
         _soundMananger = new SoundMananger();
         _animatorController = new AnimatorController(_animator);
         _playerView = new PlayerView(this, _animatorController, _soundMananger);
         _movement = new Movement(this, cam);
+
+        activeWeapon.BulletOrigin = bulletOrigin;
+        grenades = new GrenadeHolder().setSpawnPos(grenadeOrigin).setPlayerRb(this.GetComponent<Rigidbody>());
+
         _battleMechanics = new BattleMechanics(this, activeWeapon, grenades);
-        _control = new PlayerController(this);
     }
 
 
@@ -78,24 +81,6 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     //}
     #endregion
 
-    #region IOBSERVER
-    public void Subscribe(IObserver obs)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Unsubscribe(IObserver obs)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void NotifyToObservers(string action)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    #endregion
-
     #region MOVEMENT
     internal void Aim()
     {
@@ -104,10 +89,12 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     internal void Move(float v, float h)
     {
         _movement.Move(v, h);
+        _playerView.animator.Move(h,v);
     }
     internal void Roll()
     {
         _movement.Roll();
+        _playerView.animator.Roll();
     }
     internal void ChangeMovementMode(MovementMode mm)
     {
@@ -134,9 +121,9 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     {
         _battleMechanics.ReloadActiveWeapon();
     }
-    internal void ChangeFiringMode(FiringMode fm)
+    internal void ChangeFiringMode()
     {
-        _battleMechanics.ChangeFiringMode(fm);
+        _battleMechanics.ChangeFiringMode();
     }
     internal void changeGranade()
     {
@@ -146,12 +133,25 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     {
         _battleMechanics.launchGranade();
     }
-    internal FiringMode getCurrentFireMode()
-    {
-        return _battleMechanics.getCurrentFireMode();
-    }
 
     #endregion
 
+    #region IOBSERVER
+    public void Subscribe(IObserver obs)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Unsubscribe(IObserver obs)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void NotifyToObservers(string action)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    #endregion
 }
 

@@ -31,14 +31,9 @@ public class BattleMechanics
         _weapon.Reload();
     }
 
-    public void ChangeFiringMode(FiringMode FM)
+    public void ChangeFiringMode()
     {
-        _weapon.ChangeFiringMode(FM);
-    }
-
-    public FiringMode getCurrentFireMode()
-    {
-        return _weapon.getCurrentFireMode();
+        _weapon.ChangeFiringMode();
     }
 
     public void launchGranade()

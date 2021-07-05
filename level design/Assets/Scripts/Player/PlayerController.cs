@@ -16,72 +16,70 @@ public class PlayerController  //ALL THE INPUT HERE
 
     public void OnUpdate()
     {
-        //float h = Input.GetAxis("Horizontal");
-        //float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
 
-        //if ((v != 0 || h != 0))
-        //{
-        //    _player.Move(v, h);
-        //} //Move
+        if ((v != 0 || h != 0))
+        {
+            _player.Move(v, h);
+        } //Move
 
-        //if (Input.GetKey(KeyCode.Space)) 
-        //{
-        //    _player.isRolling = true;
-        //    _player.ChangeMovementMode(MovementMode.PREROLL);
-        //}//PreRoll
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _player.isRolling = true;
+            _player.ChangeMovementMode(MovementMode.PREROLL);
+        }//PreRoll
 
-        //if (Input.GetKeyUp(KeyCode.Space)) 
-        //{
-        //    _player.Roll();
-        //    _player.ChangeMovementMode(MovementMode.NORMAL);
-        //}//Roll
-        //if (Input.GetKeyDown(KeyCode.LeftControl))
-        //{
-        //    _player.ChangeMovementMode(MovementMode.CROUCHED);
-        //} //Crouched
-        //if (Input.GetKeyUp(KeyCode.LeftControl))
-        //{
-        //    _player.ChangeMovementMode(MovementMode.NORMAL);
-        //} //Crouched
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            _player.Roll();
+            _player.ChangeMovementMode(MovementMode.NORMAL);
+        }//Roll
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            _player.ChangeMovementMode(MovementMode.CROUCHED);
+        } //Crouched
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            _player.ChangeMovementMode(MovementMode.NORMAL);
+        } //Crouched
 
-        //if (!Input.GetKeyDown(KeyCode.Space)) _player.Aim();
-
-
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    _player.Shoot();
-        //}
-        //if (Input.GetKeyUp(KeyCode.Mouse0))
-        //{
-        //    _player.StopShoot();
-        //}
-        //if (Input.GetKeyDown(KeyCode.R)) {
-        //    _player.ReloadActiveWeapon();
-        //}
+        if (!Input.GetKeyDown(KeyCode.Space)) _player.Aim();
 
 
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            _player.Shoot();
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            _player.StopShoot();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _player.ReloadActiveWeapon();
+        }
 
-        ////UsarEstoParaCambiarDeArma
-        //if (Input.GetKeyDown(KeyCode.Alpha1)) { _player.ChangeFiringMode(FiringMode.SINGLESHOOT); }
-        //if (Input.GetKeyDown(KeyCode.Alpha2)) { _player.ChangeFiringMode(FiringMode.BURSTSHOOT); }
-        //if (Input.GetKeyDown(KeyCode.Alpha3)) { _player.ChangeFiringMode(FiringMode.AUTOSHOOT); }
 
-        //if (Input.GetKeyDown(KeyCode.Q)) { 
-        //    FiringMode temp = _player.getCurrentFireMode();
-        //    if(temp == FiringMode.SINGLESHOOT) _player.ChangeFiringMode(FiringMode.BURSTSHOOT); //
-        //    if (temp == FiringMode.BURSTSHOOT) _player.ChangeFiringMode(FiringMode.AUTOSHOOT);  //TODO
-        //    if (temp == FiringMode.AUTOSHOOT) _player.ChangeFiringMode(FiringMode.SINGLESHOOT); //
 
-        //}
+        //UsarEstoParaCambiarDeArma
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {}
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {}
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {}
 
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    _player.launchGranade();
-        //}
-        //if (Input.GetKeyDown(KeyCode.T)) //SOLO HAY UNA DE MOMENTO
-        //{
-        //    _player.changeGranade();
-        //}
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _player.ChangeFiringMode();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            _player.launchGranade();
+        }
+        if (Input.GetKeyDown(KeyCode.T)) //SOLO HAY UNA DE MOMENTO
+        {
+            _player.changeGranade();
+        }
 
 
 

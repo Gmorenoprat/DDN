@@ -9,7 +9,7 @@ public class AnimatorController
         _anim = a;
     }
 
-    public void Start()
+    public void Start() // 
     {
         _anim.SetBool("IsShooting", true); 
     }

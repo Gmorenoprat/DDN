@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour, IObservable
+public abstract class Weapon : MonoBehaviour
 
 {
     protected Ammo ammo;
@@ -14,19 +14,23 @@ public abstract class Weapon : MonoBehaviour, IObservable
     protected IFiringMode myCurrentFiringMode;
     protected IFiringMode FMSingleShoot;
     protected IFiringMode FMBurstShoot;
-    protected IFiringMode FMAutomaticShoot; 
+    protected IFiringMode FMAutomaticShoot;
 
-    FiringMode currentFiringMode;
+    protected IFiringMode[] availablesFiringModes;
+    private int _currentMode = 0;
+    
 
     Coroutine shooting;
     Action shoot;
 
-    List<IObserver> _allObserver = new List<IObserver>();
+    List<IObserver> _allObserver = new List<IObserver>(); 
 
     public event Action<Ammo> onUpdateAmmo;
 
+    public Action changeFiringMode;
+
     public Ammo GetAmmo { get { return ammo; } }
-    public Transform BulletOrigin{ get { return bulletOrigin; } private set { bulletOrigin = value; }    }
+    public Transform BulletOrigin{ get { return bulletOrigin; } set { bulletOrigin = value; }    }
 
 
     protected virtual void Awake()
@@ -34,23 +38,18 @@ public abstract class Weapon : MonoBehaviour, IObservable
         FMSingleShoot = new SingleShoot();
         FMBurstShoot =  new BurstShoot();
         FMAutomaticShoot = new AutomaticShoot();
-
+        
         shoot += ShootOne;
+        changeFiringMode += ChangeFiringMode;
 
     }
 
-     public void ChangeFiringMode(FiringMode tipo)
+     public void ChangeFiringMode()
     {
-        currentFiringMode = tipo;
-        if (tipo == FiringMode.SINGLESHOOT) { myCurrentFiringMode = FMSingleShoot; }
-        else if (tipo == FiringMode.BURSTSHOOT) { myCurrentFiringMode = FMBurstShoot; }
-        else if (tipo == FiringMode.AUTOSHOOT) {myCurrentFiringMode = FMAutomaticShoot; }
+        _currentMode++;
+        myCurrentFiringMode = availablesFiringModes[_currentMode%(availablesFiringModes.Length)];
     }
 
-    internal FiringMode getCurrentFireMode()
-    {
-        return currentFiringMode;
-    }
 
     public void Shoot()
     {
@@ -66,11 +65,11 @@ public abstract class Weapon : MonoBehaviour, IObservable
     void ShootOne()
     {
         if (ammo.AMMO <= 0) return;
+
         Bullet b = BulletSpawner.Instance.pool.GetObject().SetPosition(bulletOrigin);
         ammo.AMMO--;
-        onUpdateAmmo(ammo);
-        //NotifyToObservers("UpdateAmmo");
 
+        onUpdateAmmo(ammo);
     }
 
 
@@ -80,34 +79,34 @@ public abstract class Weapon : MonoBehaviour, IObservable
         if (ammo.CLIPS == 0) return;
         ammo.AMMO = ammo.MAX_LOADED_AMMO;
         ammo.CLIPS--;
-        NotifyToObservers("UpdateAmmo");
+        onUpdateAmmo(ammo);
     }
 
+    //IOBSERVER: DEPRECATED
+    //public void NotifyToObservers(string action)
+    //{
 
-    public void NotifyToObservers(string action)
-    {
+    //    for (int i = _allObserver.Count - 1; i >= 0; i--)
+    //    {
+    //        _allObserver[i].Notify(action);
+    //    }
+    //}
 
-        for (int i = _allObserver.Count - 1; i >= 0; i--)
-        {
-            _allObserver[i].Notify(action);
-        }
-    }
+    //public void Subscribe(IObserver obs)
+    //{
+    //    if (!_allObserver.Contains(obs))
+    //    {
+    //        _allObserver.Add(obs);
+    //    }
+    //}
 
-    public void Subscribe(IObserver obs)
-    {
-        if (!_allObserver.Contains(obs))
-        {
-            _allObserver.Add(obs);
-        }
-    }
-
-    public void Unsubscribe(IObserver obs)
-    {
-        if (_allObserver.Contains(obs))
-        {
-            _allObserver.Remove(obs);
-        }
-    }
+    //public void Unsubscribe(IObserver obs)
+    //{
+    //    if (_allObserver.Contains(obs))
+    //    {
+    //        _allObserver.Remove(obs);
+    //    }
+    //}
 }
 
 public struct Ammo
@@ -117,9 +116,3 @@ public struct Ammo
     public int CLIPS;
 }
 
-public enum FiringMode
-{
-    SINGLESHOOT,
-    BURSTSHOOT,
-    AUTOSHOOT
-}

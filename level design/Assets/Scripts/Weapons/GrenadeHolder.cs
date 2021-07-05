@@ -32,8 +32,7 @@ public class GrenadeHolder : IObservable
     #region BUILDER
     public GrenadeHolder setSpawnPos(Transform t)
     {
-        _spawnPosition.position = t.position;
-        _spawnPosition.rotation = t.rotation;
+        _spawnPosition = t;
         return this;
     }
     public GrenadeHolder setPlayerRb(Rigidbody rb)
@@ -42,10 +41,10 @@ public class GrenadeHolder : IObservable
         return this;
     }
     #endregion
-    public void Start()
-    {
-        NotifyToObservers("UpdateGranade");
-    }
+    //public void Start()
+    //{
+    //    NotifyToObservers("UpdateGranade");
+    //}
     public void Launch()
     {
         if (_grenadeHolderCounter[_granadeSelected] == 0) return;

@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour, IObserver
 
     public void UpdateGranadeCount()
     {
-        Granade.text = ActiveGrenades.grenadeHolder[ActiveGrenades.activeGranade].ToString();
+      //  Granade.text = ActiveGrenades.grenadeHolder[ActiveGrenades.activeGranade].ToString();
     }
     public void Notify(string action)
     {

@@ -19,6 +19,9 @@ public abstract class Weapon : MonoBehaviour
     protected IFiringMode[] availablesFiringModes;
 
     private int _currentMode = 0;
+
+    private bool _isPrimary = true;
+    private string _name;
     
     Coroutine shooting;
     Action shoot;
@@ -32,6 +35,8 @@ public abstract class Weapon : MonoBehaviour
     public Ammo GetAmmo { get { return ammo; } }
     public Transform BulletOrigin{ get { return bulletOrigin; } set { bulletOrigin = value; }    }
 
+    public bool IsPrimary { get { return _isPrimary; } set { _isPrimary = value; } }
+    public string Name { get { return _name; } set { _name = value; } }
 
     protected virtual void Awake()
     {

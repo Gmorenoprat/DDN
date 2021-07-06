@@ -57,6 +57,10 @@ public class Player : Entity , ICollector, IDamageable, IObservable
         activeWeapon.BulletOrigin = bulletOrigin;
         grenades = new GrenadeHolder().setSpawnPos(grenadeOrigin).setPlayerRb(this.GetComponent<Rigidbody>());
 
+        weaponHolder = new WeaponHolder(this,activeWeapon);
+
+        weaponHolder.AddWeapon(activeWeapon);
+        weaponHolder.AddWeapon(new Deagle());
         _battleMechanics = new BattleMechanics(this, activeWeapon, weaponHolder, grenades);
     }
 
@@ -68,6 +72,9 @@ public class Player : Entity , ICollector, IDamageable, IObservable
         //FORDEBUG
         //if (Input.GetKeyDown(KeyCode.F1)) { this.transform.position = CtSpawn.position; }
         //if (Input.GetKeyDown(KeyCode.F2)) { this.transform.position = MafiaSpawn.position; }  
+
+        if (Input.GetKeyDown(KeyCode.U)) { Debug.Log(activeWeapon.Name); }
+        if (Input.GetKeyDown(KeyCode.L)) { Debug.Log(weaponHolder.arrayDeArmas()); }
     }
 
 
@@ -112,6 +119,9 @@ public class Player : Entity , ICollector, IDamageable, IObservable
         get { return isShooting; }
         set { isShooting = value; }
     }
+
+    public Weapon SetActiveWeapon { get { return activeWeapon; } set { activeWeapon = value; } }
+
     internal void Shoot()
     {
         _battleMechanics.Shoot();
@@ -130,7 +140,7 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     }
     internal void ChangeWeapon(int slotPos)
     {
-        throw new NotImplementedException();
+        _battleMechanics.ChangeWeapon(slotPos);
     }
 
     internal void changeGranade()

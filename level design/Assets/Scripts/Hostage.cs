@@ -5,12 +5,12 @@ public class Hostage : Entity
 {
 
     public Entity _player;
-    public NavMeshAgent _nav;
+    public MoveToPlayer follow;
     public bool _follow;
     public AudioSource okLetsGO;
     public void Start()
     {
-        //_nav = this.GetComponent<NavMeshAgent>();
+        
         okLetsGO = this.GetComponent<AudioSource>();
     }
 
@@ -40,7 +40,7 @@ public class Hostage : Entity
     }
     public void Follow()
     {
-     //   _nav.SetDestination(_player.transform.position);
+     
     }
 
     public void SetPlayer( Entity player)

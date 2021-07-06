@@ -5,13 +5,13 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour 
 {
 
-    Grid GridReference;
+    public Grid GridReference;
     public Transform StartPosition;
     public Transform TargetPosition;
 
     public  List<Node> EnemyPath; 
 
-    private void Awake()
+    private void Start()
     {
         GridReference = GetComponent<Grid>();
     }
@@ -19,14 +19,15 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
+        
         EnemyPath = FindPath(StartPosition.position, TargetPosition.position);
 
     }
 
     List<Node> FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
     {
-        Node StartNode = GridReference.NodeFromWorldPoint(a_StartPos);
-        Node TargetNode = GridReference.NodeFromWorldPoint(a_TargetPos);
+        Node StartNode = Grid.instance.NodeFromWorldPoint(a_StartPos);
+        Node TargetNode = Grid.instance.NodeFromWorldPoint(a_TargetPos);
 
         List<Node> OpenList = new List<Node>();
         List<Node> FinalPath = new List<Node>();
@@ -52,7 +53,7 @@ public class Pathfinding : MonoBehaviour
                 FinalPath = GetFinalPath(StartNode, TargetNode);
             }
 
-            foreach (Node NeighborNode in GridReference.GetNeighboringNodes(CurrentNode))
+            foreach (Node NeighborNode in Grid.instance.GetNeighboringNodes(CurrentNode))
             {
                 if (!NeighborNode.bIsWall || ClosedList.Contains(NeighborNode))
                 {
@@ -93,7 +94,7 @@ public class Pathfinding : MonoBehaviour
 
         FinalPath.Reverse();
 
-        GridReference.FinalPath = FinalPath;
+        Grid.instance.FinalPath = FinalPath;
 
         return FinalPath;
     }
@@ -105,4 +106,5 @@ public class Pathfinding : MonoBehaviour
 
         return ix + iy;
     }
+   
 }

@@ -6,22 +6,25 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
 
-    public Transform StartPosition;
+    public static Grid instance;
     public LayerMask ObstacleMask;
     public Vector2 vGridWorldSize;
     public float fNodeRadius;
     public float fDistanceBetweenNodes;
 
-    Node[,] NodeArray;
+    public Node[,] NodeArray;
     public List<Node> FinalPath;
 
-    float fNodeDiameter;
+   public float fNodeDiameter;
+
+    public float fnotediametermulti;
     int iGridSizeX, iGridSizeY;
 
 
-    private void Start()
+    private void Awake()
     {
-        fNodeDiameter = fNodeRadius * 2;
+        instance = this;
+        fNodeDiameter = fNodeRadius * fnotediametermulti;
         iGridSizeX = Mathf.RoundToInt(vGridWorldSize.x / fNodeDiameter);
         iGridSizeY = Mathf.RoundToInt(vGridWorldSize.y / fNodeDiameter);
         CreateGrid();

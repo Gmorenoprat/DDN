@@ -17,6 +17,9 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public Bullet bullet;
     public Transform bulletOrigin;
     public Weapon activeWeapon;
+    public WeaponHolder weaponHolder;
+
+
     public Transform grenadeOrigin;
     public GrenadeHolder grenades;
 
@@ -54,7 +57,7 @@ public class Player : Entity , ICollector, IDamageable, IObservable
         activeWeapon.BulletOrigin = bulletOrigin;
         grenades = new GrenadeHolder().setSpawnPos(grenadeOrigin).setPlayerRb(this.GetComponent<Rigidbody>());
 
-        _battleMechanics = new BattleMechanics(this, activeWeapon, grenades);
+        _battleMechanics = new BattleMechanics(this, activeWeapon, weaponHolder, grenades);
     }
 
 
@@ -125,6 +128,11 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     {
         _battleMechanics.ChangeFiringMode();
     }
+    internal void ChangeWeapon(int slotPos)
+    {
+        throw new NotImplementedException();
+    }
+
     internal void changeGranade()
     {
         _battleMechanics.changeGranade();        

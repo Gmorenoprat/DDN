@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrenadeHolder : IObservable
+public class GrenadeHolder
 {
     //private float range = 30f;
     
     private Transform _spawnPosition;
     private Rigidbody _playerRb;
 
-    private Grenade[] granadesHolder;
+    private Grenade[] granadesHolder = new Grenade[4];
     private int[] _grenadeHolderCounter = new int[4] { 3,3,3,3}; //Crear seter
     private int _granadeSelected = 0;
     private Grenade _activeGranade;

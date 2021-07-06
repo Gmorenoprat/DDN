@@ -4,11 +4,13 @@ public class BattleMechanics
 {
     Player _player;
     Weapon _weapon;
+    WeaponHolder _weaponHolder;
     GrenadeHolder _grenades;
-    public BattleMechanics(Player p, Weapon w, GrenadeHolder g)
+    public BattleMechanics(Player p, Weapon w, WeaponHolder wh, GrenadeHolder g)
     {
         _player = p;
         _weapon = w;
+        _weaponHolder = wh;
         _grenades = g;
     }
 
@@ -22,9 +24,9 @@ public class BattleMechanics
         _weapon.StopShoot();
     }
 
-    public void ChangeWeapon(Weapon w)
+    public void ChangeWeapon(int slotPos)
     {
-        _weapon = w;
+        _weaponHolder.ChangeWeapon(slotPos);
     }
     public void ReloadActiveWeapon()
     {

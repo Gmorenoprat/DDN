@@ -16,9 +16,8 @@ public class AK47 : Weapon
 
         ammo = am;
 
-        availablesFiringModes = new IFiringMode[2];
+        availablesFiringModes = new IFiringMode[1];
         availablesFiringModes[0] = FMAutomaticShoot;
-        availablesFiringModes[1] = FMBurstShoot;
         myCurrentFiringMode = FMAutomaticShoot;
         
     }

@@ -17,9 +17,9 @@ public abstract class Weapon : MonoBehaviour
     protected IFiringMode FMAutomaticShoot;
 
     protected IFiringMode[] availablesFiringModes;
+
     private int _currentMode = 0;
     
-
     Coroutine shooting;
     Action shoot;
 
@@ -44,12 +44,11 @@ public abstract class Weapon : MonoBehaviour
 
     }
 
-     public void ChangeFiringMode()
+    public void ChangeFiringMode()
     {
         _currentMode++;
         myCurrentFiringMode = availablesFiringModes[_currentMode%(availablesFiringModes.Length)];
     }
-
 
     public void Shoot()
     {
@@ -58,7 +57,7 @@ public abstract class Weapon : MonoBehaviour
 
     public void StopShoot()
     {
-
+        
         StopCoroutine(shooting);
     }
 

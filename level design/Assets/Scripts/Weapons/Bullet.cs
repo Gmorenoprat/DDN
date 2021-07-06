@@ -30,7 +30,7 @@ void Update()
     public Bullet SetPosition(Transform t)
     {
         bulletTransform.position = t.position;
-        bulletTransform.forward = -t.forward;
+        bulletTransform.forward = t.forward;
         return this;
     }
 

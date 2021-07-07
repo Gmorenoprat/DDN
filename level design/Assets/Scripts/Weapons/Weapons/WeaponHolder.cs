@@ -6,39 +6,48 @@ using UnityEngine;
 public class WeaponHolder 
 {
     private Player _player;
-    public List<Weapon> weaponHolder = new List<Weapon>();
-    public Weapon _activeWeapon;
+    public Weapon _primaryWeapon;
+    public Weapon _secondaryWeapon;
 
-    public WeaponHolder(Player player, Weapon activeWeapon) {
+    public event Action<Weapon> onUpdateWeapon;
+
+
+    public WeaponHolder(Player player) {
         _player = player;
-        _activeWeapon = activeWeapon;
-
-       
-        weaponHolder[0] = _activeWeapon;
     }
     internal void ChangeWeapon(int slotPos)
     {
-        _player.SetActiveWeapon = weaponHolder[slotPos];
+        if(slotPos == 1 && _primaryWeapon)
+        {
+            _player.ActiveWeapon = _primaryWeapon;
+            onUpdateWeapon(_primaryWeapon);
+        }
+        else if(slotPos == 2 && _secondaryWeapon)
+        {
+            _player.ActiveWeapon = _secondaryWeapon;
+            onUpdateWeapon(_secondaryWeapon);
+
+        }
+        
     }
 
     public void AddWeapon(Weapon weapon) {
         if (weapon.IsPrimary)
         {
-            weaponHolder[0] = weapon;
+            _primaryWeapon = weapon;
         }
         else if( ! weapon.IsPrimary)
         {
-            weaponHolder[1] = weapon;
+            _secondaryWeapon = weapon;
         }
     }
 
+    //TEST
     public string arrayDeArmas()
     {
         string s = "";
-        foreach(Weapon w in weaponHolder)
-        {
-            s += w.name + " ";
-        }
+        s += "ArmaPrimaria = " + _primaryWeapon.Name;
+        s += "\n ArmaSecundaria = " + _secondaryWeapon.Name;
         return s;
     }
 }

@@ -10,23 +10,25 @@ public abstract class Weapon : MonoBehaviour
     protected Bullet bullet;
     protected float realoadTime;
     protected Transform bulletOrigin;
+    protected Transform[] bulletOriginBucket;
 
     protected IFiringMode myCurrentFiringMode;
     protected IFiringMode FMSingleShoot;
     protected IFiringMode FMBurstShoot;
     protected IFiringMode FMAutomaticShoot;
+    protected IFiringMode FMBuckShoot;
 
     protected IFiringMode[] availablesFiringModes;
 
     private int _currentMode = 0;
 
-    private bool _isPrimary = true;
+    private bool _isPrimary;
     private string _name;
     
     Coroutine shooting;
     Action shoot;
 
-    List<IObserver> _allObserver = new List<IObserver>(); 
+    //List<IObserver> _allObserver = new List<IObserver>(); 
 
     public event Action<Ammo> onUpdateAmmo;
 
@@ -34,6 +36,7 @@ public abstract class Weapon : MonoBehaviour
 
     public Ammo GetAmmo { get { return ammo; } }
     public Transform BulletOrigin{ get { return bulletOrigin; } set { bulletOrigin = value; }    }
+    public Transform[] BulletOriginBucket{ get { return bulletOriginBucket; } set { bulletOriginBucket = value; }    }
 
     public bool IsPrimary { get { return _isPrimary; } set { _isPrimary = value; } }
     public string Name { get { return _name; } set { _name = value; } }
@@ -43,21 +46,42 @@ public abstract class Weapon : MonoBehaviour
         FMSingleShoot = new SingleShoot();
         FMBurstShoot =  new BurstShoot();
         FMAutomaticShoot = new AutomaticShoot();
+        FMBuckShoot = new BuckShoot();
         
         shoot += ShootOne;
         changeFiringMode += ChangeFiringMode;
 
     }
 
+    //TODO: Sacar a obj externo (IInteractive)
+    private void OnTriggerStay(Collider other)
+    {
+        if (!other.GetComponent<Player>()) return;
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Player _player = other.GetComponent<Player>();
+            _player.GrabWeapon(this);
+            bulletOrigin = _player.bulletOrigin;
+            bulletOriginBucket = _player.bulletOriginBucket;
+        }
+    }
     public void ChangeFiringMode()
     {
         _currentMode++;
         myCurrentFiringMode = availablesFiringModes[_currentMode%(availablesFiringModes.Length)];
     }
+    public void ChangeFiringType(FiringType ft)
+    {
+        if (ft == FiringType.SINGLESHOOT) shoot = ShootOne;
+        else if (ft == FiringType.BUCKETSHOOT) shoot = ShootBuck;
+    }
 
     public void Shoot()
     {
-        if (myCurrentFiringMode != null) shooting = StartCoroutine(myCurrentFiringMode.Shoot(shoot));
+        if (myCurrentFiringMode != null)
+        {
+            shooting = StartCoroutine(myCurrentFiringMode.Shoot(shoot));
+        }
     }
 
     public void StopShoot()
@@ -72,8 +96,23 @@ public abstract class Weapon : MonoBehaviour
 
         Bullet b = BulletSpawner.Instance.pool.GetObject().SetPosition(bulletOrigin);
         ammo.AMMO--;
-
         onUpdateAmmo(ammo);
+
+
+    }
+    void ShootBuck()
+    {
+        if (ammo.AMMO <= 0) return;
+        ammo.AMMO--;
+        onUpdateAmmo(ammo);
+
+
+        foreach (Transform t in BulletOriginBucket)
+        {
+            BulletSpawner.Instance.pool.GetObject().SetPosition(t);
+        }
+
+
     }
 
 
@@ -86,31 +125,6 @@ public abstract class Weapon : MonoBehaviour
         onUpdateAmmo(ammo);
     }
 
-    //IOBSERVER: DEPRECATED
-    //public void NotifyToObservers(string action)
-    //{
-
-    //    for (int i = _allObserver.Count - 1; i >= 0; i--)
-    //    {
-    //        _allObserver[i].Notify(action);
-    //    }
-    //}
-
-    //public void Subscribe(IObserver obs)
-    //{
-    //    if (!_allObserver.Contains(obs))
-    //    {
-    //        _allObserver.Add(obs);
-    //    }
-    //}
-
-    //public void Unsubscribe(IObserver obs)
-    //{
-    //    if (_allObserver.Contains(obs))
-    //    {
-    //        _allObserver.Remove(obs);
-    //    }
-    //}
 }
 
 public struct Ammo
@@ -118,5 +132,11 @@ public struct Ammo
     public int AMMO;
     public int MAX_LOADED_AMMO;
     public int CLIPS;
+}
+
+public enum FiringType
+{
+    SINGLESHOOT,
+    BUCKETSHOOT,
 }
 

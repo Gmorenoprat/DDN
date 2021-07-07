@@ -19,6 +19,8 @@ public class Deagle : Weapon
         availablesFiringModes[0] = FMSingleShoot;
         myCurrentFiringMode = FMSingleShoot;
 
+        ChangeFiringType(FiringType.SINGLESHOOT);
+
         this.Name = this.GetType().Name;
         this.IsPrimary = false;
 

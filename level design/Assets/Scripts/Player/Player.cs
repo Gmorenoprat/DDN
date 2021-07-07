@@ -16,6 +16,7 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public bool isShooting;
     public Bullet bullet;
     public Transform bulletOrigin;
+    public Transform[] bulletOriginBucket;
     public Weapon activeWeapon;
     public WeaponHolder weaponHolder;
 
@@ -24,7 +25,7 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public GrenadeHolder grenades;
 
     [Header("HP/AR")]
-    public float life;
+    public float life = 100;
     public float armor;
     PlayerController _control;
     PlayerView _playerView;
@@ -35,9 +36,12 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public Animator _animator;
     public Camera cam;
 
-    public Weapon ActiveWeapon{ get { return activeWeapon; } set { activeWeapon = value; } }  //SET AND RELOAD
-
+    public Weapon ActiveWeapon{ get { return activeWeapon; } set { activeWeapon = value; } } 
     public GrenadeHolder ActiveGrenades{ get { return grenades; } set { grenades = value; } }
+
+    public event Action<Weapon> weaponChanged;
+    public event Action<float> onUpdateLife;
+
 
     //Debug pourpuse
     public Transform CtSpawn;
@@ -55,13 +59,17 @@ public class Player : Entity , ICollector, IDamageable, IObservable
         _movement = new Movement(this, cam);
 
         activeWeapon.BulletOrigin = bulletOrigin;
+        activeWeapon.BulletOriginBucket = bulletOriginBucket;
         grenades = new GrenadeHolder().setSpawnPos(grenadeOrigin).setPlayerRb(this.GetComponent<Rigidbody>());
 
-        weaponHolder = new WeaponHolder(this,activeWeapon);
+        weaponHolder = new WeaponHolder(this);
 
         weaponHolder.AddWeapon(activeWeapon);
-        weaponHolder.AddWeapon(new Deagle());
+
         _battleMechanics = new BattleMechanics(this, activeWeapon, weaponHolder, grenades);
+
+        weaponHolder.onUpdateWeapon += updateChangeWeapon;
+
     }
 
 
@@ -72,9 +80,7 @@ public class Player : Entity , ICollector, IDamageable, IObservable
         //FORDEBUG
         //if (Input.GetKeyDown(KeyCode.F1)) { this.transform.position = CtSpawn.position; }
         //if (Input.GetKeyDown(KeyCode.F2)) { this.transform.position = MafiaSpawn.position; }  
-
-        if (Input.GetKeyDown(KeyCode.U)) { Debug.Log(activeWeapon.Name); }
-        if (Input.GetKeyDown(KeyCode.L)) { Debug.Log(weaponHolder.arrayDeArmas()); }
+        if (Input.GetKeyDown(KeyCode.B)) { GetDamage(25); }
     }
 
 
@@ -82,13 +88,16 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     public void GetDamage(float dmg)
     {
         life -= dmg;
+        onUpdateLife(life);
+
+        if (life <= 0) Die();
     }
     
-    //public void Die()
-    //{
-    //    _animator.SetTrigger("Death");
-    //    _animator.SetLayerWeight(_animator.GetLayerIndex("Shoot"), 0); 
-    //}
+    public void Die()
+    {
+        _playerView.animator.Die();
+        this.enabled = false;
+    }
     #endregion
 
     #region MOVEMENT
@@ -137,10 +146,24 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     internal void ChangeFiringMode()
     {
         _battleMechanics.ChangeFiringMode();
-    }
+    }   
     internal void ChangeWeapon(int slotPos)
     {
         _battleMechanics.ChangeWeapon(slotPos);
+    }
+
+    void updateChangeWeapon(Weapon wep)
+    {
+        this.activeWeapon = wep;
+        _battleMechanics.setWeapon = wep;
+    }
+
+    public void GrabWeapon(Weapon weapon)
+    {
+        weaponHolder.AddWeapon(weapon);
+        if (weapon.IsPrimary) ChangeWeapon(1);
+        else if (!weapon.IsPrimary) ChangeWeapon(2);
+
     }
 
     internal void changeGranade()

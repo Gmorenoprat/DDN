@@ -20,6 +20,8 @@ public class AK47 : Weapon
         availablesFiringModes[0] = FMAutomaticShoot;
         myCurrentFiringMode = FMAutomaticShoot;
 
+        ChangeFiringType(FiringType.SINGLESHOOT);
+
         this.Name = this.GetType().Name;
         this.IsPrimary = true;
         

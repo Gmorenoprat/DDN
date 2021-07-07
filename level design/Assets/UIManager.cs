@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour, IObserver
+public class UIManager : MonoBehaviour
 {
-    public int Life;
 
     public Image[] Bull;
     public Sprite FullBull;
     public Sprite EmptyBull;
-   
+
 
     //IObservable _Weapon;
     //IObservable _Grenades;
+    Player _player;
     Weapon ActiveWeapon;
+    WeaponHolder wepHolder;
     GrenadeHolder ActiveGrenades;
-    
+
+    public Text life;
     public Text ammo;
     public Text MaxAmmo;
   
@@ -24,18 +26,21 @@ public class UIManager : MonoBehaviour, IObserver
 
     private void Start()
     {
-        Player player = this.GetComponent<Player>();
-        ActiveWeapon = player.ActiveWeapon;
-        ActiveGrenades = player.ActiveGrenades;
-        // _Weapon = player.ActiveWeapon;
-        //_Grenades = player.ActiveGrenades;
-        //  _Weapon.Subscribe(this);
-        //_Grenades.Subscribe(this);
+        _player = this.GetComponent<Player>();
+        ActiveWeapon = _player.ActiveWeapon;
+        wepHolder = _player.weaponHolder;
+        ActiveGrenades = _player.ActiveGrenades;
 
+        UpdateAmmoCount(ActiveWeapon.GetAmmo);
+        UpdateGranadeCount(ActiveGrenades.grenadeHolder);
+
+
+        _player.onUpdateLife += LifeUpdate;
         ActiveWeapon.onUpdateAmmo += UpdateAmmoCount;
-        UpdateGranadeCount();
+        wepHolder.onUpdateWeapon += WeaponChanged;
+        ActiveGrenades.onUpdateCount += UpdateGranadeCount;
 
-     }
+    }
 
     public void UpdateAmmoCount(Ammo ammo)
     {
@@ -43,24 +48,21 @@ public class UIManager : MonoBehaviour, IObserver
         MaxAmmo.text = "/"+(ActiveWeapon.GetAmmo.MAX_LOADED_AMMO * ActiveWeapon.GetAmmo.CLIPS).ToString();
     }
 
-    public void LifeUpdate(){}
-
-    public void UpdateGranadeCount()
+    public void WeaponChanged(Weapon wep)
     {
-      //  Granade.text = ActiveGrenades.grenadeHolder[ActiveGrenades.activeGranade].ToString();
+        ActiveWeapon = wep;
+        UpdateAmmoCount(wep.GetAmmo);
+        ActiveWeapon = _player.ActiveWeapon;
+        ActiveWeapon.onUpdateAmmo += UpdateAmmoCount;
+
     }
-    public void Notify(string action)
+    public void LifeUpdate(float life){
+        this.life.text = life.ToString();
+    }
+
+    public void UpdateGranadeCount(int[] grenadeCount)
     {
-        if (action== "UpdateAmmo")
-        {
-         //UpdateAmmoCount();
-        }
-
-        if (action=="LifeUpdate"){}
-
-        if(action=="UpdateGranade")
-        {
-            UpdateGranadeCount();
-        }
+      Granade.text = grenadeCount[0].ToString();
     }
+
 }

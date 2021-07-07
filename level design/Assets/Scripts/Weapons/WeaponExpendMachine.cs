@@ -12,7 +12,7 @@ public class WeaponExpendMachine : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("changeWeapon");
+            //Debug.Log("changeWeapon");
             //other.GetComponent<Player>().ChangeWeapon(bullet);
           //  this.GetComponent<AudioSource>().Play();
         }

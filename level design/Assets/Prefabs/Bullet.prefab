@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4238859964584017289}
   - component: {fileID: 7336219989393445916}
   - component: {fileID: 4747873567369652444}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletTransform: {fileID: 0}
   speed: 80
+  lifeTime: 3
 --- !u!82 &4747873567369652444
 AudioSource:
   m_ObjectHideFlags: 0

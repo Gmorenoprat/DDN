@@ -27,4 +27,11 @@ public class AnimatorController
     {
         _anim.SetBool("Crouched", crouch);
     }
+
+    public void Die()
+    {
+
+        _anim.SetTrigger("Death");
+        _anim.SetLayerWeight(_anim.GetLayerIndex("Shoot"), 0);
+    }
 }

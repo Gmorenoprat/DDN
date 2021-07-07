@@ -10,11 +10,11 @@ public class RpgAmmo : Bullet
     public LayerMask mask;
 
     public GameObject explotionEffect;
-    public override void OnCollisionEnter(Collision collision)
-    {
-        Invoke("Explode", 0);
-        GameObject.Destroy(this.gameObject);
-    }
+    //public override void OnCollisionEnter(Collision collision)
+    //{
+    //    Invoke("Explode", 0);
+    //    GameObject.Destroy(this.gameObject);
+    //}
 
     public void Explode()
     {

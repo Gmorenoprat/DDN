@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BattleMechanics
+public class BattleMechanics  //Revisar si esta clase es necesaria
 {
     Player _player;
     Weapon _weapon;
@@ -13,6 +13,8 @@ public class BattleMechanics
         _weaponHolder = wh;
         _grenades = g;
     }
+
+    public Weapon setWeapon { set { _weapon = value; } }
 
     public void Shoot()
     {
@@ -36,6 +38,10 @@ public class BattleMechanics
     public void ChangeFiringMode()
     {
         _weapon.ChangeFiringMode();
+    }
+    public void ChangeFiringType(FiringType ft)
+    {
+        _weapon.ChangeFiringType(ft);
     }
 
     public void launchGranade()

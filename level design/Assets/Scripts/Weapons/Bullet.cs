@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     public Transform bulletTransform;
     public float speed = 10f;
 
+    public float damage = 5f;
+
     public float lifeTime = 3f;
 
     private void Awake()
@@ -20,17 +22,23 @@ void Update()
 
         lifeTime -= Time.deltaTime;
         if (lifeTime <= 0) { BulletSpawner.Instance.ReturnBullet(this); lifeTime = 3f; }
-        }
+     }
 
-    public virtual void OnCollisionEnter(Collision collision)
-    {
-       BulletSpawner.Instance.ReturnBullet(this);
-    }
+    //public virtual void OnCollisionEnter(Collision collision)
+    //{
+    //   BulletSpawner.Instance.ReturnBullet(this);
+    //}
 
     public Bullet SetPosition(Transform t)
     {
         bulletTransform.position = t.position;
         bulletTransform.forward = t.forward;
+        return this;
+    }
+
+    public Bullet SetDamage(float dmg)
+    {
+        damage = dmg;
         return this;
     }
 

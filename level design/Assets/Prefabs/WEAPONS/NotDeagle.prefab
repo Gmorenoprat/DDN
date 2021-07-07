@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8088186414343948792}
   - component: {fileID: -7151208071655360695}
   - component: {fileID: -954380852508981791}
+  - component: {fileID: -4756366833194376908}
   m_Layer: 0
   m_Name: NotDeagle
   m_TagString: Untagged
@@ -124,3 +125,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: b3248db90896a6f46a0cdb09d671a88f, type: 3}
+--- !u!135 &-4756366833194376908
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4155651492315173115}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: -0.010123908, y: -0.016358694, z: -0.0000000027939675}

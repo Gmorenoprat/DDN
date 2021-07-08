@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class UIManager : MonoBehaviour
     public ObjetiveBox boxmedicine;
     public ObjetiveBox boxfood;
 
+    public wincond winner;
+
+
     private void Start()
     {
         
@@ -54,6 +58,8 @@ public class UIManager : MonoBehaviour
 
         boxmedicine.OnGrab += ObjetiveTextMedicin;
         boxfood.OnGrab += ObjetiveTextFood;
+
+      
     }
 
     public void UpdateAmmoCount(Ammo ammo)
@@ -95,6 +101,8 @@ public class UIManager : MonoBehaviour
         if(morfi.fontStyle == FontStyles.Strikethrough && medicina.fontStyle == FontStyles.Strikethrough)
         {
             volveBase.enabled = true;
+            winner.gameObject.SetActive(true);
         }
     }
+       
 }

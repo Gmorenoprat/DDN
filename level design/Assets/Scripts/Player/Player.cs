@@ -97,6 +97,12 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     {
         _playerView.animator.Die();
         this.enabled = false;
+        Invoke("changeScene",5);
+    }
+    //deberia estar en un game manager :)
+    public void changeScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Defeat");
     }
     #endregion
 
@@ -197,5 +203,7 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     }
 
     #endregion
+
+
 }
 

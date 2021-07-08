@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public Transform bulletTransform;
     public float speed = 10f;
 
-    public float damage = 5f;
+    public float damage = 10f;
 
     public float lifeTime = 3f;
 
@@ -24,10 +24,14 @@ void Update()
         if (lifeTime <= 0) { BulletSpawner.Instance.ReturnBullet(this); lifeTime = 3f; }
      }
 
-    //public virtual void OnCollisionEnter(Collision collision)
-    //{
-    //   BulletSpawner.Instance.ReturnBullet(this);
-    //}
+    public virtual void OnCollisionEnter(Collision collision)
+    {
+      if(collision.gameObject.GetComponent<IDamageable>() != null)
+        {
+            collision.gameObject.GetComponent<IDamageable>().GetDamage(damage);
+        }
+      BulletSpawner.Instance.ReturnBullet(this);
+    }
 
     public Bullet SetPosition(Transform t)
     {

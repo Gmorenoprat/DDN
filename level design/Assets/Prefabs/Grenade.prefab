@@ -148,14 +148,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b5bad415799edb45bb6bdd199c2ecb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  range: 30
   force: 150
-  explosionDistance: 30
   explotionTime: 3
   mask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  explotionEffect: {fileID: 580163786015205977, guid: be8a52adbca460947a29d60bf44be70f,
-    type: 3}
+    m_Bits: 65335
+  explosionDistance: 20
+  explotionEffect: {fileID: 0}
+  grenadeType: 0
+  damage: 50
 --- !u!54 &1577964540054989422
 Rigidbody:
   m_ObjectHideFlags: 0

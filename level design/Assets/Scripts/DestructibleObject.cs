@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructibleObject : MonoBehaviour
+public class DestructibleObject : MonoBehaviour, IDamageable
 {
     public float life;
 
@@ -14,13 +14,9 @@ public class DestructibleObject : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        DestructorObject Destructor = collision.gameObject.GetComponent<DestructorObject>();
 
-        if(Destructor != null)
-        {
-            life = life - Destructor.damage;
-        }
+    public void GetDamage(float dmg)
+    {
+        life -= dmg;
     }
 }

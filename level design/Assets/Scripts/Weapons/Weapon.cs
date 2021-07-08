@@ -6,9 +6,17 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 
 {
+    [Header("Sounds")]
+    public AudioSource shootSound;
+    public AudioSource reloadSound;
+    public AudioSource noAmmoSound;
+    WeaponSoundMananger _weaponSoundMananger;
+
+    
     protected Ammo ammo;
     protected Bullet bullet;
-    protected float realoadTime;
+    protected float realoadTime = 2;
+    private bool reloading = false;
     protected Transform bulletOrigin;
     protected Transform[] bulletOriginBucket;
 
@@ -24,6 +32,7 @@ public abstract class Weapon : MonoBehaviour
 
     private bool _isPrimary;
     private string _name;
+
     
     Coroutine shooting;
     Action shoot;
@@ -51,6 +60,7 @@ public abstract class Weapon : MonoBehaviour
         shoot += ShootOne;
         changeFiringMode += ChangeFiringMode;
 
+        _weaponSoundMananger = new WeaponSoundMananger(this);
     }
 
     //TODO: Sacar a obj externo (IInteractive)
@@ -86,23 +96,24 @@ public abstract class Weapon : MonoBehaviour
 
     public void StopShoot()
     {
-        
+        if (shooting == null) return;
         StopCoroutine(shooting);
     }
 
     void ShootOne()
     {
-        if (ammo.AMMO <= 0) return;
+        if (ammo.AMMO <= 0) { _weaponSoundMananger.NoAmmo(); return; }
 
         Bullet b = BulletSpawner.Instance.pool.GetObject().SetPosition(bulletOrigin);
         ammo.AMMO--;
         onUpdateAmmo(ammo);
+        _weaponSoundMananger.Shoot();
 
 
     }
     void ShootBuck()
     {
-        if (ammo.AMMO <= 0) return;
+        if (ammo.AMMO <= 0) { _weaponSoundMananger.NoAmmo(); return; }
         ammo.AMMO--;
         onUpdateAmmo(ammo);
 
@@ -112,17 +123,26 @@ public abstract class Weapon : MonoBehaviour
             BulletSpawner.Instance.pool.GetObject().SetPosition(t);
         }
 
-
+        _weaponSoundMananger.Shoot();
     }
 
 
-    //INICIAR CORUTINA DE RELOAD TIME
     public void Reload()
     {
+        if (reloading) return;
         if (ammo.CLIPS == 0) return;
+        reloading = true;
+        _weaponSoundMananger.Reload();
+        StartCoroutine(ReloadWait());
+    }
+    IEnumerator ReloadWait() {
+        yield return new WaitForSeconds(realoadTime);
+
+        reloading = false;
         ammo.AMMO = ammo.MAX_LOADED_AMMO;
         ammo.CLIPS--;
         onUpdateAmmo(ammo);
+        yield return null;
     }
 
 }

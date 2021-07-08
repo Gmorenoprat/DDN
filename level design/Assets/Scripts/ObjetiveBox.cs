@@ -15,6 +15,8 @@ public class ObjetiveBox : MonoBehaviour, IInteractable
     private void OnTriggerEnter(Collider _player)
     {
         OnGrab();
-        Destroy(this.gameObject);
+        this.GetComponent<AudioSource>().Play();
+        this.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+        Destroy(this.gameObject,2);
     }
 }

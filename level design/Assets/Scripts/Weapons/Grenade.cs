@@ -11,7 +11,7 @@ public abstract class Grenade : MonoBehaviour
     public float explotionTime = 3f;
     public LayerMask mask;
 
-    protected float explosionDistance;
+    public float explosionDistance = 500;
     
     public FX explotionEffect;
 

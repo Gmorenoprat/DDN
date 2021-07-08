@@ -11,18 +11,17 @@ public class GrenadeHolder
     private Rigidbody _playerRb;
 
     private Grenade[] granadesHolder = new Grenade[4];
-    private int[] _grenadeHolderCounter = new int[4] { 3,3,3,3}; //Crear seter
     private int _granadeSelected = 0;
     private Grenade _activeGranade;
     
     List<IObserver> _allObserver = new List<IObserver>();
 
     public event Action<int[]> onUpdateCount;
+    public int[] grenadeHolder { get; set; } = new int[4] { 3, 3, 3, 3 };
 
 
     #region PROPERTIES
     public int activeGranade { get { return _granadeSelected; } set { _granadeSelected = value; } }
-    public int[] grenadeHolder { get { return _grenadeHolderCounter; } set { _grenadeHolderCounter = value; } }
 
     public float setRange { get; set; }
 
@@ -42,11 +41,11 @@ public class GrenadeHolder
 
     public void Launch()
     {
-        if (_grenadeHolderCounter[_granadeSelected] == 0) return;                                              //TODO:
-        _grenadeHolderCounter[_granadeSelected]--;                                                            //When more grenades added
+        if (grenadeHolder[_granadeSelected] == 0) return;                                              //TODO:
+        grenadeHolder[_granadeSelected]--;                                                            //When more grenades added
         Grenade nadeInstance = GrenadeSpawner.Instance.fragPool.GetObject().setSpawnPosition(_spawnPosition);// Instantiate(granadesHolder[_granadeSelected], spawnPosition.position, spawnPosition.rotation);
         nadeInstance.Launch(_playerRb.velocity);
-        onUpdateCount(_grenadeHolderCounter);
+        onUpdateCount(grenadeHolder);
     }
     public void ChangeNadeType()
     {

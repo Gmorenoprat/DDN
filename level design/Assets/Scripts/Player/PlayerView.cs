@@ -13,11 +13,6 @@ public class PlayerView
         _soundMananger = s;
     }
 
-    public void Start()
-    {
-        _animator.Start();
-    }
-
     public AnimatorController animator { get { return _animator; } }
     public SoundMananger sound{ get { return _soundMananger; } }
 

@@ -7,13 +7,9 @@ public class AnimatorController
     public AnimatorController(Animator a)
     {
         _anim = a;
-    }
+        _anim.SetBool("IsShooting", true);
 
-    public void Start() // 
-    {
-        _anim.SetBool("IsShooting", true); 
     }
-
     public void Move(float h, float v) {
         _anim.SetFloat("Speed_Forward", v);
         _anim.SetFloat("Speed_Right", h);
@@ -29,8 +25,7 @@ public class AnimatorController
     }
 
     public void Die()
-    {
-
+    { 
         _anim.SetTrigger("Death");
         _anim.SetLayerWeight(_anim.GetLayerIndex("Shoot"), 0);
     }

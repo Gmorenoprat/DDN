@@ -117,7 +117,10 @@ public class Player : Entity , ICollector, IDamageable, IObservable
     }
     internal void ChangeMovementMode(MovementMode mm)
     {
+        if (mm == MovementMode.CROUCHED) _playerView.animator.Crouch(true);
+        else _playerView.animator.Crouch(false);
         _movement.ChangeMovementMode(mm);
+
     }
 
     #endregion

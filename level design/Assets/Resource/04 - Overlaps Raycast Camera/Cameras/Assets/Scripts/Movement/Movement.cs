@@ -46,8 +46,8 @@ public class Movement
     public void ChangeMovementMode(MovementMode tipo)
     {
         if (tipo == MovementMode.NORMAL) { myCurrentMovementMode = MMNormal; }
-        if (tipo == MovementMode.CROUCHED) { myCurrentMovementMode = MMCrouch; }
-        if (tipo == MovementMode.PREROLL) { myCurrentMovementMode = MMPreroll; }
+        else if (tipo == MovementMode.CROUCHED) { myCurrentMovementMode = MMCrouch; }
+        else if (tipo == MovementMode.PREROLL) { myCurrentMovementMode = MMPreroll; }
     }
 
 
@@ -65,7 +65,7 @@ public class Movement
 
 
 
-    public void Jump()  //SALTO NO VA___ ROLL SI
+    public void Jump()  //NO SALTA
     {
         _player.isGrounded = true;
         if (!_player.isGrounded) return;

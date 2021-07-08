@@ -23,6 +23,7 @@ public class PlayerController  //ALL THE INPUT HERE
         {
             _player.Move(v, h);
         } //Move
+        else _player.Move(0, 0);
 
         if (Input.GetKey(KeyCode.Space))
         {

@@ -10,7 +10,7 @@ public class Menuscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) menu.SetActive(true);
+       //if (Input.GetKeyDown(KeyCode.Escape)) menu.SetActive(true);
     }
     public void ClickInBoton(string scene)
     {

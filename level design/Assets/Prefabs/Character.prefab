@@ -918,8 +918,12 @@ MonoBehaviour:
   medicina: {fileID: 0}
   morfi: {fileID: 0}
   volveBase: {fileID: 0}
+  Weapons: []
+  Slots: []
+  Selected: []
   boxmedicine: {fileID: 0}
   boxfood: {fileID: 0}
+  winner: {fileID: 0}
 --- !u!1 &6443247267145318426
 GameObject:
   m_ObjectHideFlags: 0
@@ -2906,6 +2910,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84777d12e3a71fc44849b63e1045e958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootSound: {fileID: 0}
+  reloadSound: {fileID: 0}
+  noAmmoSound: {fileID: 0}
 --- !u!1 &6734514476624394632
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,6 +3045,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6443247267145292856}
     m_Modifications:
+    - target: {fileID: 5145845376508463276, guid: 17ed7877a2fd4eb4e98317e61fe47507,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e3be56dd3b903e94ba3434286a42de04, type: 2}
     - target: {fileID: 5145845377502275584, guid: 17ed7877a2fd4eb4e98317e61fe47507,
         type: 3}
       propertyPath: far clip plane

@@ -61,10 +61,15 @@ public class PlayerController  //ALL THE INPUT HERE
             _player.ReloadActiveWeapon();
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _player.Interact();
+        }
 
 
-        //UsarEstoParaCambiarDeArma
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { _player.StopShoot(); _player.ChangeWeapon(1); }
+
+            //UsarEstoParaCambiarDeArma
+            if (Input.GetKeyDown(KeyCode.Alpha1)) { _player.StopShoot(); _player.ChangeWeapon(1); }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { _player.StopShoot(); _player.ChangeWeapon(2); }
         if (Input.GetKeyDown(KeyCode.Alpha3)) {}
 

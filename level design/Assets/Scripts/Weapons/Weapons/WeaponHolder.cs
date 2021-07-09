@@ -34,10 +34,20 @@ public class WeaponHolder
     public void AddWeapon(Weapon weapon) {
         if (weapon.IsPrimary)
         {
+            if (_primaryWeapon != null && weapon.name == _primaryWeapon.name)
+            {
+                _primaryWeapon.AddClips = weapon.GetAmmo.CLIPS;
+                return;
+            }
             _primaryWeapon = weapon;
         }
-        else if( ! weapon.IsPrimary)
+        else if( !weapon.IsPrimary)
         {
+            if (_secondaryWeapon != null && weapon.name == _secondaryWeapon.name)
+            {
+                _secondaryWeapon.AddClips = weapon.GetAmmo.CLIPS;
+                return;
+            }
             _secondaryWeapon = weapon;
         }
     }

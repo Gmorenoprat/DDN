@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-
+﻿using System;
 public interface ICollector 
 {
+    event Action OnGrab;
 }

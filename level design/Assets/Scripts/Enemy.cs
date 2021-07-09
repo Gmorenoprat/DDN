@@ -8,7 +8,10 @@ public class Enemy : Entity , IDamageable
 
     public float damage = 25f;
 
+
+    //TODO Deberian ir a script de View para corresponder al MVC
     public AudioSource attack;
+    public AudioSource getHit;
 
     public void Die()
     {
@@ -17,6 +20,8 @@ public class Enemy : Entity , IDamageable
 
     public void GetDamage(float dmg)
     {
+        getHit.Play();
+
         life -= dmg;
         if (life <= 0) Die();
     }

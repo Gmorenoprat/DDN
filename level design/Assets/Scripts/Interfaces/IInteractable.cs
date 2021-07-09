@@ -1,7 +1,6 @@
 ﻿using System;
 
-public interface IInteractable 
+public interface IInteractable
 {
-     event Action OnGrab;
-    
+     event Action OnGrab;   
 }

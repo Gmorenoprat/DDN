@@ -41,6 +41,7 @@ public class Player : Entity , ICollector, IDamageable, IObservable
 
     public event Action<Weapon> weaponChanged;
     public event Action<float> onUpdateLife;
+    public event Action OnGrab;
 
 
     //Debug pourpuse
@@ -173,6 +174,23 @@ public class Player : Entity , ICollector, IDamageable, IObservable
         if (weapon.IsPrimary) ChangeWeapon(1);
         else if (!weapon.IsPrimary) ChangeWeapon(2);
 
+    }
+
+    //TODO: Generalizar esto para todo ICollectable
+    internal void Interact()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 5);
+        foreach(Collider c in hitColliders)
+        {
+            if(c.GetComponent<ICollectable<Weapon>>() != null)
+            {
+                c.GetComponent<ICollectable<Weapon>>().Collect += GrabWeapon;
+                Weapon wep = c.GetComponent<Weapon>();
+                wep.GrabThis();
+                wep.BulletOrigin = this.bulletOrigin;
+                wep.BulletOriginBucket = this.bulletOriginBucket;
+            }
+        }
     }
 
     internal void changeGranade()

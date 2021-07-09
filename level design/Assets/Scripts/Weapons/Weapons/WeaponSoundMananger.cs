@@ -23,4 +23,8 @@ public class WeaponSoundMananger
     {
         _weapon.reloadSound.Play();
     }
+    public void Grab()
+    {
+        _weapon.grabSound.Play();
+    }
 }

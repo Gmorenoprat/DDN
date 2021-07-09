@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour , IInteractable, ICollectable<Weapon>
 
 {
     [Header("Sounds")]
     public AudioSource shootSound;
     public AudioSource reloadSound;
     public AudioSource noAmmoSound;
+    public AudioSource grabSound;
     WeaponSoundMananger _weaponSoundMananger;
 
     
@@ -40,10 +41,13 @@ public abstract class Weapon : MonoBehaviour
     //List<IObserver> _allObserver = new List<IObserver>(); 
 
     public event Action<Ammo> onUpdateAmmo;
+    public event Action OnGrab;
+    public event Action<Weapon> Collect;
 
     public Action changeFiringMode;
 
     public Ammo GetAmmo { get { return ammo; } }
+    public int AddClips { set { ammo.CLIPS += value; } }
     public Transform BulletOrigin{ get { return bulletOrigin; } set { bulletOrigin = value; }    }
     public Transform[] BulletOriginBucket{ get { return bulletOriginBucket; } set { bulletOriginBucket = value; }    }
 
@@ -63,18 +67,20 @@ public abstract class Weapon : MonoBehaviour
         _weaponSoundMananger = new WeaponSoundMananger(this);
     }
 
-    //TODO: Sacar a obj externo (IInteractive)
-    private void OnTriggerStay(Collider other)
+
+    public void GrabThis()
     {
-        if (!other.GetComponent<Player>()) return;
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Player _player = other.GetComponent<Player>();
-            _player.GrabWeapon(this);
-            bulletOrigin = _player.bulletOrigin;
-            bulletOriginBucket = _player.bulletOriginBucket;
-        }
+        Collect(this);
+        HideWeapon();
+        _weaponSoundMananger.Grab();
     }
+
+    private void HideWeapon()
+    {
+        this.GetComponent<MeshRenderer>().enabled = false;
+        this.GetComponent<SphereCollider>().enabled = false;
+    }
+  
     public void ChangeFiringMode()
     {
         _currentMode++;

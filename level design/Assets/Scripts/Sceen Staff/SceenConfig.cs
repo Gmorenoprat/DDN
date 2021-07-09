@@ -18,6 +18,7 @@ public class SceenConfig : MonoBehaviour
         _mgr.Push(new ScreenGO(mainGame));
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
   private void Update()
@@ -28,6 +29,7 @@ public class SceenConfig : MonoBehaviour
             var s = Instantiate(Resources.Load<ScreenPause>("CanvasPause")); 
             _mgr.Push(s);
             Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
 
             pauseOn = true;
         }
@@ -35,7 +37,7 @@ public class SceenConfig : MonoBehaviour
         {
             _mgr.Pop();
             Cursor.lockState = CursorLockMode.Locked;
-
+            Cursor.visible = false;
             pauseOn = false;
 
         }
